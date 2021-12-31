@@ -10,6 +10,7 @@ const Drawer = createDrawerNavigator();
 import Aboutus from "../Component/Aboutus";
 import ContactUs from "../Component/Contactus";
 import { View, Text } from "react-native";
+import Home from "../Component/Home";
 
 const CustomDrawer = (props) => {
   return (
@@ -68,6 +69,11 @@ const DrawerNavigator = () => {
       }}
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{ headerTitleAlign: "center", headerTitle: "Qayaam" }}
+      />
       <Drawer.Screen
         name="About US"
         component={Aboutus}
