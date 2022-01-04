@@ -9,11 +9,12 @@ import { NavigationContainer } from "@react-navigation/native";
 const Drawer = createDrawerNavigator();
 import Aboutus from "../Component/Aboutus";
 import ContactUs from "../Component/Contactus";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import Home from "../Component/Home";
 import Featured from "../Component/Featured";
 import Search from "../Component/Search";
 import SignIn from "../Component/SignIn";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const CustomDrawer = (props) => {
   return (
@@ -76,7 +77,26 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Home"
         component={Home}
-        options={{ headerTitleAlign: "center", headerTitle: "Qayaam" }}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerTitle: "Qayaam",
+          headerRight: () => (
+            <MaterialCommunityIcons
+              name="filter-outline"
+              size={28}
+              color="#fff"
+              style={{ position: "relative", flexDirection: "row", right: 5 }}
+              // onPress={() => this.props.navigation.push("Search")}
+            />
+          ),
+          headerTitle: () => (
+            <Image
+              source={require("../Img/logo.png")}
+              style={{ width: 100, height: 100, alignContent: "center" }}
+            />
+          ),
+        }}
       />
 
       <Drawer.Screen
