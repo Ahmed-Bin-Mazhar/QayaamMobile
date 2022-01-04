@@ -36,7 +36,7 @@ export default class Footer extends Component {
 
 const styles = StyleSheet.create({
   footer: {
-    backgroundColor: "#3a9bba",
+    backgroundColor: "#758298",
     height: 160,
     padding: 6,
     justifyContent: "center",

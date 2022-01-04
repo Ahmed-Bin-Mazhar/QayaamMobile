@@ -11,6 +11,9 @@ import Aboutus from "../Component/Aboutus";
 import ContactUs from "../Component/Contactus";
 import { View, Text } from "react-native";
 import Home from "../Component/Home";
+import Featured from "../Component/Featured";
+import Search from "../Component/Search";
+import SignIn from "../Component/SignIn";
 
 const CustomDrawer = (props) => {
   return (
@@ -22,7 +25,7 @@ const CustomDrawer = (props) => {
             justifyContent: "space-between",
             alignItems: "center",
             justifyContent: "center",
-            padding: 50,
+            padding: 80,
             backgroundColor: "#6f858c",
             marginBottom: 20,
             marginTop: 0,
@@ -41,7 +44,7 @@ const CustomDrawer = (props) => {
         }}
       >
         <Text>
-          <Text style={{ color: "#fff" }}>Copyright © 2021 AAA PAK</Text>
+          <Text style={{ color: "#fff" }}>Copyright © FURC</Text>
         </Text>
       </View>
     </View>
@@ -58,6 +61,7 @@ const DrawerNavigator = () => {
           backgroundColor: "#6f858c",
           elevation: 0,
           shadowOpacity: 0,
+          height: 110,
         },
         headerTintColor: "#fff",
 
@@ -73,6 +77,22 @@ const DrawerNavigator = () => {
         name="Home"
         component={Home}
         options={{ headerTitleAlign: "center", headerTitle: "Qayaam" }}
+      />
+
+      <Drawer.Screen
+        name="Featured Listing"
+        component={Featured}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="Search"
+        component={Search}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="Account"
+        component={SignIn}
+        options={{ headerTitleAlign: "center" }}
       />
       <Drawer.Screen
         name="About US"
