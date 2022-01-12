@@ -15,6 +15,7 @@ import Featured from "../Component/Featured";
 import Search from "../Component/Search";
 import SignIn from "../Component/SignIn";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const CustomDrawer = (props) => {
   return (
@@ -51,30 +52,12 @@ const CustomDrawer = (props) => {
     </View>
   );
 };
+const Stack = createStackNavigator();
 
-const DrawerNavigator = () => {
+function HomeNavigation() {
   return (
-    <Drawer.Navigator
-      screenOptions={{
-        headerShown: true,
-
-        headerStyle: {
-          backgroundColor: "#6f858c",
-          elevation: 0,
-          shadowOpacity: 0,
-          height: 110,
-        },
-        headerTintColor: "#fff",
-
-        headerTitleStyle: {
-          color: "#fff",
-          fontWeight: "600",
-          fontSize: 22,
-        },
-      }}
-      drawerContent={(props) => <CustomDrawer {...props} />}
-    >
-      <Drawer.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Home"
         component={Home}
         options={{
@@ -98,6 +81,75 @@ const DrawerNavigator = () => {
           ),
         }}
       />
+
+      <Stack.Screen
+        name="Data"
+        component={Data}
+        options={{
+          headerTitle: "Details",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#10284e",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          headerTitle: "Filter Search",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#10284e",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+const DrawerNavigator = () => {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerShown: true,
+
+        headerStyle: {
+          backgroundColor: "#6f858c",
+          elevation: 0,
+          shadowOpacity: 0,
+          height: 110,
+        },
+        headerTintColor: "#fff",
+
+        headerTitleStyle: {
+          color: "#fff",
+          fontWeight: "600",
+          fontSize: 22,
+        },
+      }}
+      drawerContent={(props) => <CustomDrawer {...props} />}
+    >
+      <Drawer.Screen name="Home" component={HomeNavigation} />
 
       <Drawer.Screen
         name="Featured Listing"

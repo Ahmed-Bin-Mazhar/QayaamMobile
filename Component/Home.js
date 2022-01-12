@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import Footer from "./Footer";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import HomeListings from "../Listings/HomeListings";
 
 class Home extends PureComponent {
   constructor(props) {
@@ -20,7 +21,35 @@ class Home extends PureComponent {
     this.state = { isLoading: true, text: "" };
     this.arrayholder = [];
   }
-
+  componentDidMount() {
+    return fetch("http://3.135.209.144:8000/ep/hostels-all")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState(
+          {
+            isLoading: false,
+            dataSource: responseJson,
+          },
+          function () {
+            this.arrayholder = responseJson;
+          }
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  SearchFilterFunction(text) {
+    const newData = this.arrayholder.filter(function (item) {
+      const itemData = item.title ? item.title.toUpperCase() : "".toUpperCase();
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      dataSource: newData,
+      text: text,
+    });
+  }
   render() {
     return (
       <ScrollView>
@@ -34,7 +63,7 @@ class Home extends PureComponent {
             ></TextInput>
           </View>
 
-          {/* <FlatList
+          <FlatList
             data={this.state.dataSource}
             ItemSeparatorComponent={this.ListViewItemSeparator}
             renderItem={(data) => (
@@ -43,7 +72,7 @@ class Home extends PureComponent {
             keyExtractor={(item) => item.name}
             enableEmptySections={true}
             style={{ marginTop: 10 }}
-          /> */}
+          />
         </View>
         <Footer />
       </ScrollView>
