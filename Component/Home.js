@@ -22,7 +22,7 @@ class Home extends PureComponent {
     this.arrayholder = [];
   }
   componentDidMount() {
-    return fetch("http://3.135.209.144:8000/ep/hostels-all")
+    return fetch("http://localhost:8000/api/listings/listingsEp/listings-all/")
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState(
