@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Footer from "./Footer";
 import { Ionicons } from "@expo/vector-icons";
@@ -9,7 +9,16 @@ export default class ContactUs extends Component {
     return (
       <ScrollView>
         <View style={styles.Icon}>
-          <MaterialCommunityIcons name="home" size={150} color="black" />
+          <Image
+            source={require("../Img/logo1.png")}
+            style={{
+              width: 200,
+              height: 200,
+              left: 20,
+              alignContent: "center",
+            }}
+          />
+          {/* <MaterialCommunityIcons name="home" size={150} color="black" /> */}
         </View>
 
         <View style={styles.page}>

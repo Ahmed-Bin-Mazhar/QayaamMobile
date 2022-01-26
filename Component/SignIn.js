@@ -18,7 +18,7 @@ function SignIn() {
   // hide && show Password
   //   const [PassShow, setPassShow] = useState(true);
 
-  //   // Text empty alert
+  //   Text empty alert
   //   const [usernameshow, setusernameshow] = useState(false);
   //   const [passwordshow, setpasswordshow] = useState(false);
 

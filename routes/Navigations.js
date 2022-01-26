@@ -9,7 +9,7 @@ import { NavigationContainer } from "@react-navigation/native";
 const Drawer = createDrawerNavigator();
 import Aboutus from "../Component/Aboutus";
 import ContactUs from "../Component/Contactus";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import Home from "../Component/Home";
 import Featured from "../Component/Featured";
 import Search from "../Component/Search";
@@ -27,20 +27,52 @@ const CustomDrawer = (props) => {
             justifyContent: "space-between",
             alignItems: "center",
             justifyContent: "center",
-            padding: 80,
+            padding: 40,
             backgroundColor: "#6f858c",
             marginBottom: 20,
             marginTop: 0,
           }}
-        ></View>
+        >
+          <Image
+            source={require("../Img/user.png")}
+            style={{ width: 60, height: 60, borderRadius: 30 }}
+          />
+          <View>
+            <Text style={{ paddingTop: 5, color: "#fff" }}>
+              ahmedbinmazhar@gmail.com
+            </Text>
+          </View>
+        </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
+      <TouchableOpacity
+        style={{
+          position: "absolute",
+          right: 0,
+          left: 0,
+          bottom: 50,
+          backgroundColor: "#5f9ea0",
+          padding: 15,
+          flexDirection: "column",
+          borderRadius: 25,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            color: "#fff",
+          }}
+        >
+          Log Out
+        </Text>
+      </TouchableOpacity>
 
       <View
         style={{
           backgroundColor: "#6f858c",
           flexDirection: "column",
-          padding: 30,
+          padding: 15,
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -63,22 +95,23 @@ function HomeNavigation() {
         options={{
           flexDirection: "row",
           headerTitleAlign: "center",
-          headerTitle: "Qayaam",
-          headerRight: () => (
-            <MaterialCommunityIcons
-              name="filter-outline"
-              size={28}
-              color="#fff"
-              style={{ position: "relative", flexDirection: "row", right: 5 }}
-              // onPress={() => this.props.navigation.push("Search")}
-            />
-          ),
-          headerTitle: () => (
-            <Image
-              source={require("../Img/logo.png")}
-              style={{ width: 100, height: 100, alignContent: "center" }}
-            />
-          ),
+          headerShown: false,
+
+          //   headerRight: () => (
+          //     <MaterialCommunityIcons
+          //       name="filter-outline"
+          //       size={28}
+          //       color="#fff"
+          //       style={{ position: "relative", flexDirection: "row", right: 5 }}
+          //       // onPress={() => this.props.navigation.push("Search")}
+          //     />
+          //   ),
+          //   headerTitle: () => (
+          //     <Image
+          //       source={require("../Img/logo.png")}
+          //       style={{ width: 100, height: 100, alignContent: "center" }}
+          //     />
+          //   ),
         }}
       />
 
@@ -149,7 +182,30 @@ const DrawerNavigator = () => {
       }}
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
-      <Drawer.Screen name="Home" component={HomeNavigation} />
+      <Drawer.Screen
+        name="Qayaam"
+        component={HomeNavigation}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+
+          headerRight: () => (
+            <MaterialCommunityIcons
+              name="filter-outline"
+              size={28}
+              color="#fff"
+              style={{ position: "relative", flexDirection: "row", right: 5 }}
+              // onPress={() => this.props.navigation.push("Search")}
+            />
+          ),
+          headerTitle: () => (
+            <Image
+              source={require("../Img/logo.png")}
+              style={{ width: 100, height: 100, alignContent: "center" }}
+            />
+          ),
+        }}
+      />
 
       <Drawer.Screen
         name="Featured Listing"
