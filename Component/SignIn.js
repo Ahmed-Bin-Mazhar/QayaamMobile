@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   ScrollView,
+  Image,
   TouchableOpacity,
 } from "react-native";
 
@@ -13,8 +14,7 @@ import Feather from "react-native-vector-icons/Feather";
 
 import Footer from "../Component/Footer";
 
-function SignIn() {
-  // function SignIn({ navigation }) {
+function SignIn({ navigation }) {
   // hide && show Password
   //   const [PassShow, setPassShow] = useState(true);
 
@@ -68,7 +68,16 @@ function SignIn() {
     <ScrollView>
       <View style={styles.Container}>
         <View style={styles.Icon}>
-          <MaterialCommunityIcons name="home" size={150} color="black" />
+          <Image
+            source={require("../Img/logo1.png")}
+            style={{
+              width: 200,
+              height: 200,
+              left: 20,
+              alignContent: "center",
+            }}
+          />
+          {/* <MaterialCommunityIcons name="home" size={150} color="black" /> */}
         </View>
         {/** User name */}
         <View>
@@ -191,7 +200,7 @@ function SignIn() {
         }}
       >
         <TouchableOpacity
-          // onPress={() => navigation.push("User")}
+          onPress={() => navigation.push("User")}
           style={styles.Button1}
         >
           <Text
@@ -216,7 +225,7 @@ function SignIn() {
         }}
       >
         <TouchableOpacity
-          // onPress={() => navigation.push("Admin")}
+          onPress={() => navigation.push("Admin")}
           style={styles.Button1}
         >
           <Text
@@ -270,7 +279,7 @@ const styles = StyleSheet.create({
     width: "60%",
     margin: 3,
     borderRadius: 120,
-    backgroundColor: "skyblue",
+    backgroundColor: "#228b22",
     paddingBottom: 20,
   },
   TextInput: {

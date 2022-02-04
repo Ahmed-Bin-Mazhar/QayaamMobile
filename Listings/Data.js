@@ -22,51 +22,45 @@ import Footer from "../Component/Footer";
 // import GridImageViewer from "react-native-grid-image-viewer";
 
 export default Data = ({ route }) => {
-  const id = route.params.id;
-  const title = route.params.title;
-  const location = route.params.location;
+  const Nearby_University = route.params.Nearby_University;
   const address = route.params.address;
-  const city = route.params.city;
-  const zipcode = route.params.zipcode;
-  const description = route.params.description;
-  const price = route.params.price;
-  const seater = route.params.seater;
   const bathrooms = route.params.bathrooms;
+  const city = route.params.city;
+  const description = route.params.description;
+  const food_facility = route.params.food_facility;
   const hostel_type = route.params.hostel_type;
-  const available = route.params.available;
-  const photo_main = route.params.photo_main;
-  const photo_1 = route.params.photo_1;
-  const photo_2 = route.params.photo_2;
-  const photo_3 = route.params.photo_3;
-  const photo_4 = route.params.photo_4;
-  const photo_5 = route.params.photo_5;
-  const photo_6 = route.params.photo_6;
-  const is_published = route.params.is_published;
-  const list_date = route.params.list_date;
-  const owner = route.params.owner;
-  const nearby_universities = route.params.nearby_universities;
-  const utilities = route.params.utilities;
+  const id = route.params.id;
+  const internet_facility = route.params.internet_facility;
+  const is_featured = route.params.is_featured;
+  const laundary_facility = route.params.laundary_facility;
+  const photo1 = route.params.photo1;
+  const photo2 = route.params.photo2;
+  const price = route.params.price;
+  const realtor = route.params.realtor;
+  const seater = route.params.seater;
+  const title = route.params.title;
+  const zipcode = route.params.zipcode;
 
-  const [usercontact, setusercontact] = useState();
-  const [abcdef, setuserid] = useState();
-  const [username, setusername] = useState();
-  useEffect(() => {
-    fetch(`http://3.135.209.144:8000/ep/owners-all/${owner}`)
-      .then((resp) => resp.json())
-      .then((data) => {
-        setuserid(data.user), setusercontact(data.phone);
+  // const [usercontact, setusercontact] = useState();
+  // const [abcdef, setuserid] = useState();
+  // const [username, setusername] = useState();
+  // useEffect(() => {
+  //   fetch(`http://3.135.209.144:8000/ep/owners-all/${owner}`)
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       setuserid(data.user), setusercontact(data.phone);
 
-        fetch(`http://3.135.209.144:8000/ep/pusers-all/${data.user}`)
-          .then((resp) => resp.json())
-          .then((data) => {
-            setusername(data.username);
-          });
-      })
+  //       fetch(`http://3.135.209.144:8000/ep/pusers-all/${data.user}`)
+  //         .then((resp) => resp.json())
+  //         .then((data) => {
+  //           setusername(data.username);
+  //         });
+  //     })
 
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   // useEffect(() => {
   //   console.log(abcdef);
@@ -77,23 +71,24 @@ export default Data = ({ route }) => {
   //     });
   // }, []);
 
-  dialCall = (number) => {
-    let phoneNumber = "";
-    if (Platform.OS === "android") {
-      phoneNumber = `tel:${number}`;
-    } else {
-      phoneNumber = `telprompt:${number}`;
-    }
-    Linking.openURL(phoneNumber);
-  };
+  // dialCall = (number) => {
+  //   let phoneNumber = "";
+  //   if (Platform.OS === "android") {
+  //     phoneNumber = `tel:${number}`;
+  //   } else {
+  //     phoneNumber = `telprompt:${number}`;
+  //   }
+  //   Linking.openURL(phoneNumber);
+  // };
 
   return (
     <ScrollView>
       <View>
         <Image
-          source={{
-            uri: photo_main,
-          }}
+          source={require("../Img/logo1.png")}
+          // source={{
+          //   uri: photo1,
+          // }}
           style={styles.picture}
         />
       </View>
@@ -116,7 +111,8 @@ export default Data = ({ route }) => {
               <Text style={{ fontSize: 16 }}>{address}</Text>
             </Ionicons>
             <Text style={styles.address}>
-              {city} {location}
+              {" "}
+              {city} {/*{location} */}
             </Text>
           </View>
 
@@ -132,7 +128,7 @@ export default Data = ({ route }) => {
           <Text style={{ fontSize: 20, fontWeight: "700" }}>
             Nearby Institutions:
           </Text>
-          <Text style={{ fontSize: 16 }}>{nearby_universities}</Text>
+          <Text style={{ fontSize: 16 }}>{Nearby_University}</Text>
         </View>
         {/* Details */}
         <View style={{ padding: 15 }} />
@@ -193,7 +189,7 @@ export default Data = ({ route }) => {
               paddingLeft: 25,
             }}
           >
-            <Text>{utilities}</Text>
+            <Text>utilities</Text>
           </View>
         </View>
         {/*  */}
@@ -211,7 +207,7 @@ export default Data = ({ route }) => {
         <View style={styles.realtor}>
           <Image
             style={styles.picturerealtor}
-            source={require("../Img/logo.png")}
+            source={require("../Img/user.png")}
           />
           <Text
             style={{
@@ -222,7 +218,7 @@ export default Data = ({ route }) => {
               fontWeight: "700",
             }}
           >
-            {username}
+            {realtor}
           </Text>
           <Text
             style={{ position: "absolute", left: 120, top: 45, fontSize: 14 }}
@@ -244,7 +240,7 @@ export default Data = ({ route }) => {
               paddingRight: 3,
               backgroundColor: "#183563",
             }}
-            onPress={() => this.dialCall(usercontact)}
+            //  onPress={() => this.dialCall(usercontact)}
           >
             <Ionicons name="md-call-sharp" size={28} color="#fff" />
           </TouchableOpacity>
@@ -266,7 +262,8 @@ export default Data = ({ route }) => {
               fontSize: 14,
             }}
           >
-            {list_date}
+            {/* {list_date} */}
+            list_date
           </Text>
         </View>
       </View>

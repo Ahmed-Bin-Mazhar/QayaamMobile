@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default class Footer extends Component {
@@ -7,7 +7,16 @@ export default class Footer extends Component {
     return (
       <View>
         <View style={styles.footer}>
-          <MaterialCommunityIcons name="home" size={50} color="#fff" />
+          <Image
+            source={require("../Img/logo.png")}
+            style={{
+              width: 100,
+              height: 75,
+              left: 20,
+              alignContent: "center",
+            }}
+          />
+          {/* <MaterialCommunityIcons name="home" size={50} color="#fff" /> */}
           <Text
             style={{
               fontSize: 20,
@@ -37,14 +46,14 @@ export default class Footer extends Component {
 const styles = StyleSheet.create({
   footer: {
     backgroundColor: "#6f858c",
-    height: 160,
+    height: 180,
     padding: 6,
     justifyContent: "center",
     alignItems: "center",
   },
   mainfooter: {
     backgroundColor: "#6f858c",
-    height: 30,
+    height: 40,
     justifyContent: "space-around",
     alignItems: "center",
     flexDirection: "row",

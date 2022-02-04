@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Mobile",
+    "name": "Qayaam",
     "slug": "Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./Img/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./Img/logo1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.ahmedbinmazhar.Mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"

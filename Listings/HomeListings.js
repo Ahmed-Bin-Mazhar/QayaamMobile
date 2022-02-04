@@ -13,65 +13,53 @@ import Data from "./Data";
 
 const HomeListings = ({
   id,
+  realtor,
   title,
-  location,
   address,
   city,
+  Nearby_University,
   zipcode,
   description,
   price,
   seater,
   bathrooms,
   hostel_type,
-  available,
-  photo_main,
-  photo_1,
-  photo_2,
-  photo_3,
-  photo_4,
-  photo_5,
-  photo_6,
-  is_published,
-  list_date,
-  owner,
-  nearby_universities,
-  utilities,
+  food_facility,
+  laundary_facility,
+  internet_facility,
+  is_featured,
+  photo1,
+  photo2,
   navigation,
 }) => {
   return (
     <View>
       <TouchableOpacity
         style={{ backgroundColor: "transparent" }}
-        // onPress={() => navigation.navigate("Data", { name: "AHMED" })}
+        //onPress={() => navigation.navigate("Data", { name: "AHMED" })}
         onPress={() => {
           navigation.navigate(
             "Data",
 
             {
               id,
+              realtor,
               title,
-              location,
               address,
               city,
+              Nearby_University,
               zipcode,
               description,
               price,
               seater,
               bathrooms,
               hostel_type,
-              available,
-              photo_main,
-              photo_1,
-              photo_2,
-              photo_3,
-              photo_4,
-              photo_5,
-              photo_6,
-              is_published,
-              list_date,
-              owner,
-              nearby_universities,
-              utilities,
+              food_facility,
+              laundary_facility,
+              internet_facility,
+              is_featured,
+              photo1,
+              photo2,
               navigation,
             }
           );
@@ -82,7 +70,7 @@ const HomeListings = ({
             <Text style={{ color: "#000000", fontSize: 20 }}>{title}</Text>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: "#000000", fontSize: 16 }}>
-                {/* <MaterialIcons name="attach-money" size={20} color="#000000" /> */}
+                <MaterialIcons name="attach-money" size={20} color="#000000" />
                 Rs {price}
                 {"/-"} {"\n"}
               </Text>
@@ -95,10 +83,11 @@ const HomeListings = ({
               </Text>
 
               <Text style={{ color: "#000000", paddingLeft: 10 }}>
-                {/* <MaterialCommunityIcons name="food" size={24} color="#000000" />: */}
+                <MaterialCommunityIcons name="food" size={24} color="#000000" />
+                :
                 <Ionicons name="fast-food-outline" size={24} color="#000000" />
                 {"  "}
-                {/* {food_facility} */}
+                {food_facility}
               </Text>
             </View>
             <View style={{ flexDirection: "row" }}>
@@ -109,20 +98,21 @@ const HomeListings = ({
                   color="#000000"
                 />
                 {"  "}
-                {/* {laundary_facility} */}
+                {laundary_facility}
               </Text>
               <Text style={{ color: "#000000", paddingLeft: 62 }}>
                 <MaterialCommunityIcons name="wifi" size={24} color="#000000" />
                 {"  "}
-                {/* {internet_facility} */}
+                {internet_facility}
               </Text>
             </View>
           </View>
 
           <Image
-            source={{
-              uri: photo_main,
-            }}
+            source={require("../Img/logo1.png")}
+            // source={{
+            //   uri: photo1,
+            // }}
             style={styles.pokeImage}
           />
         </View>

@@ -14,8 +14,19 @@ import Home from "../Component/Home";
 import Featured from "../Component/Featured";
 import Search from "../Component/Search";
 import SignIn from "../Component/SignIn";
+import AddImage from "../Component/AddImage";
+import RegistrationUser from "../Component/RegistrationUser";
+import RegistrationAdmin from "../Component/RegistrationAdmin";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
+import AddListing from "../Component/AddListing";
+import Realtor from "../Component/Realtor";
+import BookingRequest from "../Component/BookingReq";
+import ViewListings from "../Component/ViewListing";
+import RateTenant from "../Component/RateTenant";
+import BookingReq from "../Component/BookingReq";
+import { ScrollView } from "react-native-gesture-handler";
+import HomeListings from "../Listings/HomeListings";
 
 const CustomDrawer = (props) => {
   return (
@@ -85,7 +96,201 @@ const CustomDrawer = (props) => {
   );
 };
 const Stack = createStackNavigator();
+function Account({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Sign In"
+        component={SignIn}
+        options={{
+          headerShown: false,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
 
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+          headerLeft: () => (
+            <Ionicons name="ios-menu-sharp" size={24} color="#fff" />
+          ),
+          headerLeftContainerStyle: {
+            left: 16,
+          },
+        }}
+      />
+      <Stack.Screen name="AddImg" component={AddImage} />
+      <Stack.Screen
+        name="User"
+        component={RegistrationUser}
+        options={{
+          headerTitle: "User Registration",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          headerTitle: "BETHEK",
+          headerTitleAlign: "left",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Admin"
+        component={RegistrationAdmin}
+        options={{
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function RealtorView({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Qayaam_Realtor"
+        component={Realtor}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="View_Listings"
+        component={ViewListings}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#515B5F",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Rate_Tenant"
+        component={RateTenant}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          headerTitle: "Rating",
+          headerStyle: {
+            backgroundColor: "#515B5F",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Add_Listings"
+        component={AddListing}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          headerTitle: "Add Listings",
+          headerStyle: {
+            backgroundColor: "#515B5F",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BookingReq"
+        component={BookingReq}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          headerTitle: "Bookings",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#515B5F",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 function HomeNavigation() {
   return (
     <Stack.Navigator>
@@ -96,22 +301,47 @@ function HomeNavigation() {
           flexDirection: "row",
           headerTitleAlign: "center",
           headerShown: false,
+        }}
+      />
+      {/* <Stack.Screen
+        name="SearchData"
+        component={SearchData}
+        options={{
+          headerTitle: "Search Result",
+          headerTitleAlign: "left",
 
-          //   headerRight: () => (
-          //     <MaterialCommunityIcons
-          //       name="filter-outline"
-          //       size={28}
-          //       color="#fff"
-          //       style={{ position: "relative", flexDirection: "row", right: 5 }}
-          //       // onPress={() => this.props.navigation.push("Search")}
-          //     />
-          //   ),
-          //   headerTitle: () => (
-          //     <Image
-          //       source={require("../Img/logo.png")}
-          //       style={{ width: 100, height: 100, alignContent: "center" }}
-          //     />
-          //   ),
+          headerStyle: {
+            backgroundColor: "#10284e",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      /> */}
+      <Stack.Screen
+        name="HomeListings"
+        component={HomeListings}
+        options={{
+          headerTitle: "Details",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
         }}
       />
 
@@ -122,7 +352,7 @@ function HomeNavigation() {
           headerTitle: "Details",
           headerTitleAlign: "center",
           headerStyle: {
-            backgroundColor: "#10284e",
+            backgroundColor: "#6f858c",
             elevation: 0,
             shadowOpacity: 0,
           },
@@ -189,15 +419,15 @@ const DrawerNavigator = () => {
           flexDirection: "row",
           headerTitleAlign: "center",
 
-          headerRight: () => (
-            <MaterialCommunityIcons
-              name="filter-outline"
-              size={28}
-              color="#fff"
-              style={{ position: "relative", flexDirection: "row", right: 5 }}
-              // onPress={() => this.props.navigation.push("Search")}
-            />
-          ),
+          // headerRight: ({ navigation }) => (
+          //   <MaterialCommunityIcons
+          //     name="filter-outline"
+          //     size={28}
+          //     color="#fff"
+          //     style={{ position: "relative", flexDirection: "row", right: 5 }}
+          //     onPress={() => this.navigation.push("Search")}
+          //   />
+          // ),
           headerTitle: () => (
             <Image
               source={require("../Img/logo.png")}
@@ -219,7 +449,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Account"
-        component={SignIn}
+        component={Account}
         options={{ headerTitleAlign: "center" }}
       />
       <Drawer.Screen
@@ -227,9 +457,35 @@ const DrawerNavigator = () => {
         component={Aboutus}
         options={{ headerTitleAlign: "center" }}
       />
+
       <Drawer.Screen
         name="Contact US"
         component={ContactUs}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="QayaamRealtor"
+        component={RealtorView}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="Add Listings"
+        component={AddListing}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="ViewListings"
+        component={ViewListings}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="RateTenant"
+        component={RateTenant}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="BookingRequest"
+        component={BookingRequest}
         options={{ headerTitleAlign: "center" }}
       />
     </Drawer.Navigator>

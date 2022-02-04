@@ -32,7 +32,7 @@ export default RegistrationUser = ({ navigation }) => {
       <View
         style={{
           padding: 40,
-          backgroundColor: "#10284e",
+          backgroundColor: "#6f858c",
           borderBottomRightRadius: 70,
           borderBottomLeftRadius: 70,
           paddingBottom: 60,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     justifyContent: "center",
-    backgroundColor: "#10284e",
+    backgroundColor: "#6f858c",
     padding: 12,
     width: 240,
     borderRadius: 80,

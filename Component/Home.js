@@ -1,39 +1,53 @@
-import React, { Component, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import {
+  ActivityIndicator,
   View,
   FlatList,
-  TouchableOpacity,
-  Text,
-  ActivityIndicator,
   ScrollView,
   StyleSheet,
   TextInput,
-  Image,
+  Text,
 } from "react-native";
 import Footer from "./Footer";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ListItem } from "react-native-elements";
 import HomeListings from "../Listings/HomeListings";
-
 class Home extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = { isLoading: true, text: "" };
+    this.state = {
+      isLoading: true,
+      text: "",
+      dataSource: {},
+    };
     this.arrayholder = [];
   }
+  ListViewItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 0.3,
+          width: "90%",
+          backgroundColor: "#fff",
+        }}
+      />
+    );
+  };
+
   componentDidMount() {
-    return fetch("http://localhost:8000/api/listings/listingsEp/listings-all/")
+    fetch("https://qayaamapi.herokuapp.com/listings-all?format=json", {
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState(
-          {
-            isLoading: false,
-            dataSource: responseJson,
-          },
-          function () {
-            this.arrayholder = responseJson;
-          }
-        );
+        //console.log(responseJson);
+        this.arrayholder = responseJson;
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        });
+        console.log(this.state.dataSource);
       })
       .catch((error) => {
         console.error(error);
@@ -50,7 +64,25 @@ class Home extends PureComponent {
       text: text,
     });
   }
+  ListViewItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 0.3,
+          width: "90%",
+          backgroundColor: "#fff",
+        }}
+      />
+    );
+  };
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, paddingTop: 0 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     return (
       <ScrollView>
         <View style={styles.viewStyle}>
@@ -58,18 +90,18 @@ class Home extends PureComponent {
             <TextInput
               style={styles.textInputStyle}
               onChangeText={(text) => this.SearchFilterFunction(text)}
-              //value={this.state.text}
-              placeholder="Search for Residence"
+              value={this.state.text}
+              placeholder="Search Here ..."
             ></TextInput>
           </View>
 
           <FlatList
             data={this.state.dataSource}
-            ItemSeparatorComponent={this.ListViewItemSeparator}
             renderItem={(data) => (
               <HomeListings {...data.item} navigation={this.props.navigation} />
             )}
-            keyExtractor={(item) => item.name}
+            ItemSeparatorComponent={this.ListViewItemSeparator}
+            keyExtractor={(item) => item.id}
             enableEmptySections={true}
             style={{ marginTop: 10 }}
           />
@@ -79,6 +111,7 @@ class Home extends PureComponent {
     );
   }
 }
+
 const styles = StyleSheet.create({
   header: {
     padding: 50,
