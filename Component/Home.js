@@ -20,7 +20,7 @@ class Home extends PureComponent {
       text: "",
       dataSource: {},
     };
-    this.arrayholder = [];
+    this.arrayholder = [];1
   }
   ListViewItemSeparator = () => {
     return (
