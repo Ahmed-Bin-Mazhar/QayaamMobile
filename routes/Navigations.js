@@ -27,6 +27,9 @@ import RateTenant from "../Component/RateTenant";
 import BookingReq from "../Component/BookingReq";
 import { ScrollView } from "react-native-gesture-handler";
 import HomeListings from "../Listings/HomeListings";
+import Booking from "../Component/Booking";
+import Feedback from "../Component/Feedback";
+import FeebackView from "../Component/FeebackView";
 
 const CustomDrawer = (props) => {
   return (
@@ -365,6 +368,67 @@ function HomeNavigation() {
           },
         }}
       />
+      <Stack.Screen
+        name="Booking"
+        component={Booking}
+        options={{
+          headerTitle: "Booking",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Feedback"
+        component={Feedback}
+        options={{
+          headerTitle: "Feedback",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FeebackView"
+        component={FeebackView}
+        options={{
+          headerShown: "False",
+          headerTitle: "Feedback",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
 
       <Stack.Screen
         name="Search"
@@ -373,7 +437,7 @@ function HomeNavigation() {
           headerTitle: "Filter Search",
           headerTitleAlign: "center",
           headerStyle: {
-            backgroundColor: "#10284e",
+            backgroundColor: "#6f858c",
             elevation: 0,
             shadowOpacity: 0,
           },

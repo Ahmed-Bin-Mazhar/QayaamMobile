@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Data from "./Data";
 
 const HomeListings = ({
-  id,
+  list_id,
   realtor,
   title,
   address,
@@ -42,7 +42,7 @@ const HomeListings = ({
             "Data",
 
             {
-              id,
+              list_id,
               realtor,
               title,
               address,
@@ -69,10 +69,11 @@ const HomeListings = ({
           <View style={styles.ItemHeader}>
             <Text style={{ color: "#000000", fontSize: 20 }}>{title}</Text>
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "#000000", fontSize: 16 }}>
-                <MaterialIcons name="attach-money" size={20} color="#000000" />
+              <Text
+                style={{ color: "#000000", fontSize: 16, fontWeight: "700" }}
+              >
                 Rs {price}
-                {"/-"} {"\n"}
+                {"/-\n"}
               </Text>
             </View>
             <View style={{ flexDirection: "row" }}>
@@ -83,8 +84,6 @@ const HomeListings = ({
               </Text>
 
               <Text style={{ color: "#000000", paddingLeft: 10 }}>
-                <MaterialCommunityIcons name="food" size={24} color="#000000" />
-                :
                 <Ionicons name="fast-food-outline" size={24} color="#000000" />
                 {"  "}
                 {food_facility}

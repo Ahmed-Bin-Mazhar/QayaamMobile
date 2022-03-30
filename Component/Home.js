@@ -20,7 +20,8 @@ class Home extends PureComponent {
       text: "",
       dataSource: {},
     };
-    this.arrayholder = [];1
+    this.arrayholder = [];
+    1;
   }
   ListViewItemSeparator = () => {
     return (
@@ -64,17 +65,7 @@ class Home extends PureComponent {
       text: text,
     });
   }
-  ListViewItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 0.3,
-          width: "90%",
-          backgroundColor: "#fff",
-        }}
-      />
-    );
-  };
+
   render() {
     if (this.state.isLoading) {
       return (
