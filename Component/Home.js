@@ -36,7 +36,7 @@ class Home extends PureComponent {
   };
 
   componentDidMount() {
-    fetch("https://qayaamapi.herokuapp.com/listings-all?format=json", {
+    fetch("https://qayaamapi.herokuapp.com/listings-all", {
       method: "GET",
     })
       .then((response) => response.json())

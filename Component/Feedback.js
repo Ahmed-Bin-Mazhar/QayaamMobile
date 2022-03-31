@@ -11,6 +11,7 @@ import {
   ScrollView,
   Text,
   StyleSheet,
+  Picker,
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 export default class Feedback extends Component {
@@ -21,17 +22,21 @@ export default class Feedback extends Component {
       isLoading: true,
       review: "",
       dataSource: {},
+      rating: "",
+      list_id: "1",
     };
   }
-
   handleReview = (text) => {
     this.setState({ review: text });
   };
 
   componentDidMount() {
-    fetch("https://qayaamapi.herokuapp.com/listingfeedbacks-all?list_id=1", {
-      method: "GET",
-    })
+    fetch(
+      `https://qayaamapi.herokuapp.com/listingfeedbacks-all?list_id=${this.state.list_id}`,
+      {
+        method: "GET",
+      }
+    )
       .then((response) => response.json())
       .then((responseJson) => {
         //console.log(responseJson);
@@ -89,9 +94,39 @@ export default class Feedback extends Component {
               autoCapitalize="none"
               onChangeText={(text) => this.handleReview(text)}
               placeholder="Give us your review...."
+              multiline={true}
             />
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                alignSelf: "center",
+                padding: 15,
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: "700" }}>Rating :</Text>
+              <Picker
+                style={{
+                  left: 45,
+                  height: 30,
+                  width: 150,
+                }}
+                selectedValue={this.state.rating}
+                onValueChange={(Value) =>
+                  this.setState({
+                    rating: Value,
+                  })
+                }
+              >
+                <Picker.Item label="1" value="1" />
+                <Picker.Item label="2" value="2" />
+                <Picker.Item label="3" value="3" />
+                <Picker.Item label="4" value="4" />
+                <Picker.Item label="5" value="5" />
+              </Picker>
+            </View>
 
-            <View style={{ padding: 5 }} />
+            <View style={{ padding: 10 }} />
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
@@ -106,7 +141,7 @@ export default class Feedback extends Component {
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify({
-                        star_rating: "1",
+                        star_rating: this.state.rating,
                         description: this.state.review,
                         list_id: "1",
                       }),
@@ -140,9 +175,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontStyle: "italic",
     padding: 8,
-    width: 350,
-    height: 120,
-    left: 15,
+    width: "90%",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    height: 70,
 
     borderWidth: 2,
     paddingLeft: 10,
