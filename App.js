@@ -2,7 +2,7 @@ import React from "react";
 import Home from "./Component/Home";
 import Navigations from "./routes/Navigations";
 import AddListing from "./Component/AddListing";
-import RegistrationUser from "./Component/RegistrationAdmin";
+
 import Realtor from "./Component/Realtor";
 
 // const contentful = require("contentful-management");

@@ -108,7 +108,7 @@ const HomeListings = ({
           </View>
 
           <Image
-            source={require("../Img/logo1.png")}
+            source={require("../Img/hostel.jpg")}
             // source={{
             //   uri: photo1,
             // }}

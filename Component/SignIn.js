@@ -9,9 +9,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Feather from "react-native-vector-icons/Feather";
-
 import Footer from "../Component/Footer";
 
 function SignIn({ navigation }) {
@@ -67,74 +64,36 @@ function SignIn({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.Container}>
-        <View style={styles.Icon}>
-          <Image
-            source={require("../Img/logo1.png")}
-            style={{
-              width: 200,
-              height: 200,
-              left: 20,
-              alignContent: "center",
-            }}
-          />
-          {/* <MaterialCommunityIcons name="home" size={150} color="black" /> */}
-        </View>
-        {/** User name */}
-        <View>
-          <View>
-            <Feather
-              name="user"
-              size={20}
-              color="black"
-              paddingTop="30"
-              alignContent="center"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Text> UserName:</Text>
-            </Feather>
+        <Image
+          source={require("../Img/logo1.png")}
+          style={{
+            width: 200,
+            height: 200,
+            alignSelf: "center",
+          }}
+        />
+        {/* Username & Passward & Registration */}
+        <View style={styles.Container2}>
+          <Text
+            style={{ textAlign: "center", fontSize: 20, fontWeight: "700" }}
+          >
+            Log in with your Email and Passward
+          </Text>
+          {/* Username */}
+          <View style={{ flexDirection: "column", paddingTop: 10 }}>
+            <Text style={styles.Text}>Username:</Text>
             <TextInput
               placeholderTextColor="black"
-              placeholder="Enter UserName"
+              placeholder="Enter Email"
               style={styles.TextInput}
               color="#000"
-              // onChangeText={(text) => setuserName(text)}
+              //   secureTextEntry={PassShow}
+              // onChangeText={(text) => setPassword(text)}
             />
           </View>
-          {/* {usernameshow === true ? ( */}
-          <Text style={{ height: 30, color: "red" }}>
-            {" "}
-            Please Enter the UserName
-          </Text>
-          {/* ) : ( */}
-          <View style={{ padding: 15 }} />
-          {/* )} */}
-        </View>
-        {/** Password*/}
-        <View>
-          <View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Feather name="lock" size={20} color="black">
-                <Text> Password:</Text>
-              </Feather>
-              <TouchableOpacity
-                //   onPress={() => {
-                //     setPassShow(!PassShow);
-                //   }}
-                style={{ right: 15 }}
-              >
-                <MaterialCommunityIcons
-                  //   name={PassShow === false ? "eye" : "eye-off"}
-                  size={20}
-                  color="black"
-                />
-              </TouchableOpacity>
-            </View>
+          {/* Passward */}
+          <View style={{ flexDirection: "column", paddingTop: 10 }}>
+            <Text style={styles.Text}>Passward:</Text>
             <TextInput
               placeholderTextColor="black"
               placeholder="Enter Password"
@@ -144,151 +103,76 @@ function SignIn({ navigation }) {
               // onChangeText={(text) => setPassword(text)}
             />
           </View>
-          {/* {passwordshow === true ? ( */}
-          <Text style={{ height: 30, color: "red" }}>
-            {" "}
-            Please Enter the Password{" "}
-          </Text>
-          {/* ) : ( */}
-          <View style={{ padding: 15 }} />
-          {/* )} */}
+          {/* Button */}
+          <View
+            style={{
+              flexDirection: "column",
+              paddingTop: 10,
+              alignSelf: "center",
+            }}
+          >
+            <TouchableOpacity
+              style={styles.Button}
+              //   onPress={handleSubmitPress}
+            >
+              <Text style={{ fontSize: 16, fontWeight: "bold", color: "#fff" }}>
+                SIGN IN
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* Registration */}
+          <View
+            style={{
+              flexDirection: "row",
+              paddingTop: 10,
+              alignSelf: "center",
+            }}
+          >
+            <Text style={{ fontSize: 16, fontWeight: "700" }}>
+              To to create a new account
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Registration")}
+            >
+              <Text
+                style={{ fontSize: 16, fontWeight: "500", color: "#01688c" }}
+              >
+                {" "}
+                Register Now
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-      <View style={styles.signInButton}>
-        <TouchableOpacity
-          style={styles.Button}
-          //   onPress={handleSubmitPress}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold", color: "#fff" }}>
-            SIGN IN
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/*line in between*/}
-      <View
-        style={{
-          borderBottomColor: "black",
-          borderBottomWidth: 1,
-          left: 5,
-          right: 5,
-          paddingTop: 80,
-        }}
-      />
-
-      <View>
-        <Text
-          style={{
-            fontWeight: "bold",
-            fontSize: 22,
-            textAlign: "center",
-            justifyContent: "center",
-            paddingTop: 25,
-          }}
-        >
-          For New Users and Owners
-        </Text>
-      </View>
-
-      {/* 2nd last button */}
-      <View
-        style={{
-          paddingTop: 20,
-          alignContent: "center",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.push("User")}
-          style={styles.Button1}
-        >
-          <Text
-            style={{
-              color: "white",
-              textAlign: "center",
-              justifyContent: "center",
-            }}
-          >
-            Register
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* last button */}
-      <View
-        style={{
-          paddingTop: 10,
-          alignContent: "center",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.push("Admin")}
-          style={styles.Button1}
-        >
-          <Text
-            style={{
-              color: "white",
-              textAlign: "center",
-              justifyContent: "center",
-            }}
-          >
-            Register Owner
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ paddingTop: 40, paddingBottom: 1 }}>
-        <Footer />
-      </View>
+      <Footer />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  Icon: {
-    justifyContent: "center",
-    textAlign: "center",
-    paddingTop: 30,
-    flexDirection: "column",
-    paddingBottom: 30,
-    alignItems: "center",
-  },
   Container: {
+    padding: 5,
+  },
+  Container2: {
     padding: 10,
-    flex: 1,
-    paddingBottom: 5,
   },
-  signInButton: {
-    paddingTop: 20,
-  },
-  Button: {
-    alignItems: "center",
-    alignContent: "center",
-    justifyContent: "center",
-    backgroundColor: "#6f858c",
-    padding: 12,
-    width: 240,
-    borderRadius: 80,
-    left: 62,
-  },
-  Button1: {
-    paddingTop: 20,
-    width: "60%",
-    margin: 3,
-    borderRadius: 120,
-    backgroundColor: "#228b22",
-    paddingBottom: 20,
+  Text: {
+    fontSize: 20,
+    fontWeight: "700",
   },
   TextInput: {
     height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 40,
+    margin: 5,
+
+    borderBottomWidth: 1,
     color: "black",
+  },
+  Button: {
+    alignItems: "center",
+    backgroundColor: "#6f858c",
+    padding: 12,
+    width: 200,
+    borderRadius: 80,
   },
 });
 

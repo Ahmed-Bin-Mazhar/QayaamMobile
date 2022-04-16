@@ -37,7 +37,7 @@ export default Data = ({ route, navigation }) => {
     <ScrollView>
       {/* Picture */}
       <View style={styles.picture_view}>
-        <Image source={require("../Img/logo1.png")} style={styles.picture} />
+        <Image source={require("../Img/hostel.jpg")} style={styles.picture} />
       </View>
 
       {/* Container */}
@@ -110,7 +110,9 @@ export default Data = ({ route, navigation }) => {
           {/* Seater */}
           <View style={{ flexDirection: "row", left: 30 }}>
             <MaterialCommunityIcons name="bed" size={20} color="#000000">
-              <Text style={{ fontSize: 16 }}>{"\t"}Seater : </Text>
+              <Text style={{ fontSize: 16 }}>
+                {"\t"}Seater :{"\t\t\t"}
+              </Text>
             </MaterialCommunityIcons>
 
             <View style={{ flexDirection: "column" }}>
@@ -206,14 +208,16 @@ export default Data = ({ route, navigation }) => {
               fontWeight: "700",
             }}
             onPress={() => {
-              navigation.navigate(
-                "Booking",
+              navigation.navigate("Booking", { list_id });
 
-                {
-                  list_id,
-                  navigation,
-                }
-              );
+              // navigation.navigate(
+              //   "Booking",
+
+              //   {
+              //     list_id,
+              //     navigation,
+              //   }
+              // );
             }}
           >
             <Text
@@ -305,14 +309,13 @@ export default Data = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   picture_view: {
-    padding: 5,
+    padding: 1,
 
     backgroundColor: "#fff",
   },
   picture: {
     height: 300,
-    width: 400,
-    left: 25,
+    width: 410,
   },
   container: {
     padding: 2,

@@ -15,8 +15,7 @@ import Featured from "../Component/Featured";
 import Search from "../Component/Search";
 import SignIn from "../Component/SignIn";
 import AddImage from "../Component/AddImage";
-import RegistrationUser from "../Component/RegistrationUser";
-import RegistrationAdmin from "../Component/RegistrationAdmin";
+import Registration from "../Component/Registration";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import AddListing from "../Component/AddListing";
@@ -129,26 +128,7 @@ function Account({ navigation }) {
         }}
       />
       <Stack.Screen name="AddImg" component={AddImage} />
-      <Stack.Screen
-        name="User"
-        component={RegistrationUser}
-        options={{
-          headerTitle: "User Registration",
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "#6f858c",
-            elevation: 0,
-            shadowOpacity: 0,
-          },
-          headerTintColor: "#fff",
 
-          headerTitleStyle: {
-            color: "#fff",
-            fontWeight: "600",
-            fontSize: 22,
-          },
-        }}
-      />
       <Stack.Screen
         name="Home"
         component={Home}
@@ -172,8 +152,8 @@ function Account({ navigation }) {
         }}
       />
       <Stack.Screen
-        name="Admin"
-        component={RegistrationAdmin}
+        name="Registration"
+        component={Registration}
         options={{
           headerTitleAlign: "center",
           headerStyle: {

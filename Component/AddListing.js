@@ -9,8 +9,6 @@ import {
   Alert,
   Picker,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import * as ImagePicker from "expo-image-picker";
 
 export default RegistrationAdmin = ({ navigation }) => {
   // let [selectedImage, setSelectedImage] = React.useState(null);
@@ -149,6 +147,7 @@ export default RegistrationAdmin = ({ navigation }) => {
               borderBottomWidth: 1,
               left: 10,
               width: "65%",
+              textAlign: "center",
 
               fontSize: 14,
             }}

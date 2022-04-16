@@ -1,118 +1,214 @@
-//This is an example code to make a Star Rating Bar //
-import React, { Component } from "react";
-//import react in our code.
+import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
-  View,
-  Platform,
-  Text,
-  Image,
   TouchableOpacity,
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  Button,
 } from "react-native";
-//import all the components we are going to use.
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
-export default class Booking extends Component {
-  constructor() {
-    super();
-    this.state = {
-      Default_Rating: 2.5,
-      //To set the default Star Selected
-      Max_Rating: 5,
-      //To set the max number of Stars
-    };
-    //Filled Star. You can also give the path from local
-    this.Star =
-      "https://raw.githubusercontent.com/AboutReact/sampleresource/master/star_filled.png";
+import DatePicker from "react-native-datepicker";
+const Booking = ({ route, navigation }) => {
+  const [currentDate, setCurrentDate] = useState("");
 
-    //Empty Star. You can also give the path from local
-    this.Star_With_Border =
-      "https://raw.githubusercontent.com/AboutReact/sampleresource/master/star_corner.png";
-  }
-  UpdateRating(key) {
-    this.setState({ Default_Rating: key });
-    //Keeping the Rating Selected in state
-  }
-  render() {
-    let React_Native_Rating_Bar = [];
-    //Array to hold the filled or empty Stars
-    for (var i = 1; i <= this.state.Max_Rating; i++) {
-      React_Native_Rating_Bar.push(
-        <TouchableOpacity
-          activeOpacity={0.7}
-          key={i}
-          onPress={this.UpdateRating.bind(this, i)}
-        >
-          <Image
-            style={styles.StarImage}
-            source={
-              i <= this.state.Default_Rating
-                ? { uri: this.Star }
-                : { uri: this.Star_With_Border }
-            }
-          />
-        </TouchableOpacity>
-      );
-    }
-    return (
-      <View style={styles.MainContainer}>
-        <Text style={styles.textStyle}>How was your experience with us</Text>
-        <Text style={styles.textStyleSmall}>Please Rate Us</Text>
-        {/*View to hold our Stars*/}
-        <View style={styles.childView}>{React_Native_Rating_Bar}</View>
-
-        <Text style={styles.textStyle}>
-          {/*To show the rating selected*/}
-          {this.state.Default_Rating} / {this.state.Max_Rating}
-        </Text>
-
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.button}
-          onPress={() => alert(this.state.Default_Rating)}
-        >
-          {/*Clicking on button will show the rating as an alert*/}
-          <Text>Get Selected Value</Text>
-        </TouchableOpacity>
-      </View>
+  useEffect(() => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    setCurrentDate(
+      year +
+        "-" +
+        month +
+        "-" +
+        date +
+        "T" +
+        hours +
+        ":" +
+        min +
+        ":" +
+        sec 
+        
     );
-  }
-}
+  }, []);
+  const [CheckIn, setCheckin] = useState();
+  const [CheckOut, setCheckOut] = useState();
 
+  const list_id = route.params.list_id;
+  return (
+    <View style={styles.container}>
+      <Text
+        style={{
+          padding: 20,
+          textAlign: "center",
+          fontWeight: "700",
+          fontSize: 22,
+        }}
+      >
+        Please enter your checkin and checkout details
+      </Text>
+      <View
+        style={{
+          padding: 20,
+          flexDirection: "column",
+        }}
+      >
+        {/* Check in Date  */}
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Text
+            style={{
+              padding: 20,
+              textAlign: "center",
+              fontWeight: "700",
+              fontSize: 16,
+            }}
+          >
+            Check-In Date:
+          </Text>
+          <DatePicker
+            style={styles.datePickerStyle}
+            date={CheckIn} //initial date from state
+            mode="date" //The enum of date, datetime and time
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            minDate="2022-01-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                //display: 'none',
+                position: "absolute",
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              },
+              dateInput: {
+                marginLeft: 36,
+              },
+            }}
+            onDateChange={(date) => {
+              setCheckin(date);
+            }}
+          />
+        </View>
+        {/* Check out Date  */}
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Text
+            style={{
+              padding: 20,
+              textAlign: "center",
+              fontWeight: "700",
+              fontSize: 16,
+            }}
+          >
+            Check-Out Date:
+          </Text>
+          <DatePicker
+            style={styles.datePickerStyle1}
+            date={CheckOut} //initial date from state
+            mode="date" //The enum of date, datetime and time
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            minDate="2022-01-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                //display: 'none',
+                position: "absolute",
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              },
+              dateInput: {
+                marginLeft: 36,
+              },
+            }}
+            onDateChange={(date) => {
+              setCheckOut(date);
+            }}
+          />
+        </View>
+      </View>
+
+      <TouchableOpacity
+        style={styles.Button}
+        onPress={() => {
+          console.log(currentDate);
+          console.log(CheckIn);
+          console.log(CheckOut);
+          console.log(list_id);
+
+          try {
+            fetch("https://qayaamapi.herokuapp.com/bookings-all", {
+              method: "POST",
+              mode: "no-cors",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                booking_date_time: currentDate,
+                checkin_date: CheckIn,
+                checkout_date: CheckOut,
+                list_id: list_id,
+              }),
+            });
+          } catch (e) {
+            console.log(e);
+          }
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 15,
+            fontWeight: "700",
+          }}
+        >
+          {"submit"}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 const styles = StyleSheet.create({
-  MainContainer: {
-    flex: 1,
-    justifyContent: "center",
+  container: {
+    padding: 1,
+  },
+  Button: {
     alignItems: "center",
-    paddingTop: Platform.OS === "ios" ? 20 : 0,
-  },
-  childView: {
+    alignContent: "center",
     justifyContent: "center",
-    flexDirection: "row",
-    marginTop: 30,
+    backgroundColor: "#6f858c",
+    padding: 12,
+    width: 240,
+    borderRadius: 80,
+    left: 80,
   },
-  button: {
-    justifyContent: "center",
-    flexDirection: "row",
-    marginTop: 30,
-    padding: 15,
-    backgroundColor: "#8ad24e",
+  datePickerStyle: {
+    width: 200,
+    marginTop: 10,
+    left: 10,
+    flexDirection: "column",
   },
-  StarImage: {
-    width: 40,
-    height: 40,
-    resizeMode: "cover",
-  },
-  textStyle: {
-    textAlign: "center",
-    fontSize: 23,
-    color: "#000",
-    marginTop: 15,
-  },
-  textStyleSmall: {
-    textAlign: "center",
-    fontSize: 16,
-
-    color: "#000",
-    marginTop: 15,
+  datePickerStyle1: {
+    width: 200,
+    marginTop: 10,
+    flexDirection: "column",
   },
 });
+
+export default Booking;
