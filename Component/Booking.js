@@ -32,8 +32,8 @@ const Booking = ({ route, navigation }) => {
         ":" +
         min +
         ":" +
-        sec 
-        
+        sec +
+        "Z"
     );
   }, []);
   const [CheckIn, setCheckin] = useState();
@@ -165,6 +165,7 @@ const Booking = ({ route, navigation }) => {
                 checkin_date: CheckIn,
                 checkout_date: CheckOut,
                 list_id: list_id,
+                tenant_id: "3",
               }),
             });
           } catch (e) {

@@ -410,7 +410,6 @@ export default RegistrationAdmin = ({ navigation }) => {
                     "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                    realtor: realtor1,
                     title: title1,
                     address: address1,
                     city: city1,
@@ -425,6 +424,9 @@ export default RegistrationAdmin = ({ navigation }) => {
                     laundary_facility: laundary_facility1,
                     internet_facility: internet_facility1,
                     is_featured: is_featured1,
+                    // photo1: "",
+                    // photo2: "",
+                    realtor_id: "6",
                   }),
                 });
                 Alert.alert("Listing Added!");

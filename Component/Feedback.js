@@ -23,7 +23,7 @@ export default class Feedback extends Component {
       review: "",
       dataSource: {},
       rating: "",
-      list_id: "1",
+      list_id: "9",
     };
   }
   handleReview = (text) => {
@@ -130,6 +130,8 @@ export default class Feedback extends Component {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
+                console.log(this.state.review);
+                console.log(this.state.rating);
                 try {
                   fetch(
                     "https://qayaamapi.herokuapp.com/listingfeedbacks-all",
@@ -143,7 +145,8 @@ export default class Feedback extends Component {
                       body: JSON.stringify({
                         star_rating: this.state.rating,
                         description: this.state.review,
-                        list_id: "1",
+                        list_id: this.state.list_id,
+                        tenant_id: "3",
                       }),
                     }
                   );
