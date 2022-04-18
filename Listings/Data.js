@@ -225,7 +225,8 @@ export default Data = ({ route, navigation }) => {
                 fontWeight: "700",
               }}
             >
-              BOOK NOW
+              {" "}
+              BOOKING{" "}
             </Text>
           </TouchableOpacity>
 
@@ -240,14 +241,7 @@ export default Data = ({ route, navigation }) => {
               fontWeight: "700",
             }}
             onPress={() => {
-              navigation.navigate(
-                "Feedback",
-
-                {
-                  list_id,
-                  navigation,
-                }
-              );
+              navigation.navigate("Feedback", { list_id, navigation });
             }}
           >
             <Text

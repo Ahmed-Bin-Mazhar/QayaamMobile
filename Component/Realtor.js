@@ -115,7 +115,7 @@ export default function Realtor({ navigation }) {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.push("Rate_Tenant")}
+            onPress={() => navigation.push("Tenantfeedback")}
             style={styles.Button1}
           >
             <Text

@@ -8,17 +8,16 @@ import {
   Button,
 } from "react-native";
 
-const FeebackView = ({
-  feedback_id,
-  star_rating,
-  description,
-  tenant_id,
-  navigation,
-}) => {
+const UserReviewDesign = ({ route, navigation }) => {
+  const feedback_id = route.params.feedback_id;
+  const star_rating = route.params.star_rating;
+  const description = route.params.description;
+  const tenant_id = route.params.tenant_id;
+  const realtor_id = route.params.realtor_id;
   const [Username, SetUsername] = useState(null);
 
   useEffect(() => {
-    fetch(`https://qayaamapi.herokuapp.com/accounts-all/${tenant_id}`)
+    fetch(`https://qayaamapi.herokuapp.com/accounts-all/${realtor_id}`)
       .then((response) => response.json())
 
       .then((data) => SetUsername(data.name));
@@ -29,36 +28,31 @@ const FeebackView = ({
       <View style={styles.listItemContainer}>
         <View style={styles.ItemHeader}>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ fontSize: 17, fontWeight: "700" }}>
-              {"User :  "}
-            </Text>
+            <Text style={{ fontSize: 16, fontWeight: "700" }}>{"User : "}</Text>
             <Text
               style={{
                 flexDirection: "column",
                 width: 320,
                 textTransform: "uppercase",
-                fontSize: 15,
               }}
             >
-              {"\t"}
               {Username}
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ fontSize: 17, fontWeight: "700" }}>
-              {"Rating :"}
+            <Text style={{ fontSize: 16, fontWeight: "700" }}>
+              {"Rating: "}
             </Text>
-            <Text style={{ flexDirection: "column", width: 320, fontSize: 15 }}>
-              {"  "}
+            <Text style={{ flexDirection: "column", width: 320 }}>
               {star_rating}
               {"/5"}
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ fontSize: 17, fontWeight: "700" }}>
+            <Text style={{ fontSize: 16, fontWeight: "700" }}>
               {"Review: "}
             </Text>
-            <Text style={{ flexDirection: "column", width: 320, fontSize: 15 }}>
+            <Text style={{ flexDirection: "column", width: 320 }}>
               {description}
             </Text>
           </View>
@@ -88,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FeebackView;
+export default UserReviewDesign;

@@ -9,21 +9,19 @@ import {
   View,
   FlatList,
   ScrollView,
-  Text,
   StyleSheet,
-  Picker,
 } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import BookingView from "./BookingView";
-export default class BookingReq extends Component {
+
+export default class ViewListingFeedBack extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isLoading: true,
-
+      review: "",
       dataSource: {},
-      list_id: 9,
+      rating: "",
+      list_id: "9",
     };
   }
   handleReview = (text) => {
@@ -32,14 +30,14 @@ export default class BookingReq extends Component {
 
   componentDidMount() {
     fetch(
-      `https://qayaamapi.herokuapp.com/bookings-all/specific-listing-booking?list_id=${this.state.list_id}`,
+      `https://qayaamapi.herokuapp.com/listingfeedbacks-all?list_id=${this.state.list_id}`,
       {
         method: "GET",
       }
     )
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
+        //console.log(responseJson);
         this.arrayholder = responseJson;
 
         this.setState({
@@ -78,7 +76,7 @@ export default class BookingReq extends Component {
         <FlatList
           data={this.state.dataSource}
           renderItem={(data) => (
-            <BookingView {...data.item} navigation={this.props.navigation} />
+            <FeebackView {...data.item} navigation={this.props.navigation} />
           )}
           ItemSeparatorComponent={this.ListViewItemSeparator}
           keyExtractor={(item) => item.id}
