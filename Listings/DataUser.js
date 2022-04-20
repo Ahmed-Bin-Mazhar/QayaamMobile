@@ -1,36 +1,109 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 import {
-  TouchableOpacity,
-  Text,
+  ActivityIndicator,
   View,
-  Image,
-  StyleSheet,
-  Button,
   FlatList,
+  ScrollView,
+  Text,
+  StyleSheet,
+  Picker,
 } from "react-native";
 import UserReviewDesign from "../Component/UserReviewDesign";
 
-const DataUser = ({ route, navigation }) => {
-  const tenant_id = route.params.tenant_id;
-  const [Data, SetData] = useState();
+export default class DataUser extends Component {
+  constructor(props) {
+    super(props);
 
-  useEffect(() => {
+    this.state = {
+      isLoading: true,
+
+      dataSource: {},
+      tenant_id: this.props.route.params.tenant_id,
+    };
+  }
+  componentDidMount() {
     fetch(
-      `https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/?tenant_id=${tenant_id}`
+      `https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/?tenant_id=${this.state.tenant_id}`,
+      {
+        method: "GET",
+      }
     )
       .then((response) => response.json())
+      .then((responseJson) => {
+        this.arrayholder = responseJson;
 
-      .then((data) => SetData(data));
-  }, []);
+        this.setState({
+          isLoading: false,
 
-  return (
-    // <FlatList
-    //   data={Data}
-    //   renderItem={(data) => <UserReviewDesign {...data.item} />}
-    //   keyExtractor={(item) => item.name}
-    // />
-    <Text>Hello Not Working Now </Text>
-  );
-};
+          dataSource: responseJson,
+        });
+        console.log(this.state.tenant_id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
-export default DataUser;
+  render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, paddingTop: 0 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+    return (
+      <ScrollView>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={(data) => (
+            <UserReviewDesign
+              {...data.item}
+              navigation={this.props.navigation}
+            />
+          )}
+          ItemSeparatorComponent={this.ListViewItemSeparator}
+          keyExtractor={(item) => item.id}
+          enableEmptySections={true}
+          style={{ marginTop: 10 }}
+        />
+      </ScrollView>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  listItemContainer: {
+    borderStyle: "solid",
+    borderColor: "#fff",
+    borderBottomWidth: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    padding: 15,
+  },
+  textInputStyle: {
+    textAlign: "center",
+    fontStyle: "italic",
+    padding: 8,
+    width: "90%",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    height: 70,
+
+    borderWidth: 2,
+    paddingLeft: 10,
+    borderColor: "#6f858c",
+    backgroundColor: "#fff",
+    borderRadius: 10,
+  },
+  Button: {
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    backgroundColor: "#6f858c",
+    padding: 12,
+    width: 240,
+    borderRadius: 80,
+    left: 62,
+  },
+});

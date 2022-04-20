@@ -11,7 +11,9 @@ class Featured extends Component {
   };
 
   async componentDidMount() {
-    fetch("https://qayaamapi.herokuapp.com/listings-all?format=json")
+    fetch(
+      "https://qayaamapi.herokuapp.com/listings-all/specific-listings/?is_featured=True"
+    )
       .then((res) => res.json())
       .then((resJson) => {
         this.setState({ Listings: resJson, loading: false });

@@ -115,7 +115,7 @@ export default function Realtor({ navigation }) {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.push("Tenantfeedback")}
+            onPress={() => navigation.push("GetAllT_Feedback")}
             style={styles.Button1}
           >
             <Text
@@ -126,7 +126,7 @@ export default function Realtor({ navigation }) {
                 fontSize: 20,
               }}
             >
-              Rate Tenant
+              Rate All Tenant
             </Text>
           </TouchableOpacity>
         </View>
@@ -139,7 +139,7 @@ export default function Realtor({ navigation }) {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.push("BookingReq")}
+            onPress={() => navigation.push("GetAllBookings")}
             style={styles.Button1}
           >
             <Text
@@ -150,7 +150,7 @@ export default function Realtor({ navigation }) {
                 fontSize: 20,
               }}
             >
-              Booking Rquest
+              All Booking Rquest
             </Text>
           </TouchableOpacity>
         </View>

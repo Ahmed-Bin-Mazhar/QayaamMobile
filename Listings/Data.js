@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Image,
@@ -32,6 +32,9 @@ export default Data = ({ route, navigation }) => {
   const realtor = route.params.realtor;
   const seater = route.params.seater;
   const title = route.params.title;
+
+  const realtor_id = route.params.realtor_id;
+  useEffect;
 
   return (
     <ScrollView>
@@ -208,7 +211,11 @@ export default Data = ({ route, navigation }) => {
               fontWeight: "700",
             }}
             onPress={() => {
-              navigation.navigate("Booking", { list_id });
+              navigation.navigate("Booking", {
+                list_id,
+                realtor_id,
+                navigation,
+              });
 
               // navigation.navigate(
               //   "Booking",
@@ -241,7 +248,7 @@ export default Data = ({ route, navigation }) => {
               fontWeight: "700",
             }}
             onPress={() => {
-              navigation.navigate("Feedback", { list_id, navigation });
+              navigation.navigate("Feedback", { list_id });
             }}
           >
             <Text

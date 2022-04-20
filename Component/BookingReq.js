@@ -23,7 +23,7 @@ export default class BookingReq extends Component {
       isLoading: true,
 
       dataSource: {},
-      list_id: 9,
+      list_id: this.props.route.params.list_id,
     };
   }
   handleReview = (text) => {
@@ -39,7 +39,6 @@ export default class BookingReq extends Component {
     )
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         this.arrayholder = responseJson;
 
         this.setState({
@@ -47,7 +46,7 @@ export default class BookingReq extends Component {
 
           dataSource: responseJson,
         });
-        console.log(this.state.dataSource);
+        console.log(this.state.list_id);
       })
       .catch((error) => {
         console.error(error);

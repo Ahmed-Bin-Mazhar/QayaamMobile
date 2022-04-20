@@ -1,57 +1,29 @@
-//This is an example code to make a Star Rating Bar //
-import React, { Component } from "react";
-//import react in our code.
-
-import FeebackView from "./FeebackView";
-//import all the components we are going to use.
+import React, { PureComponent } from "react";
 import {
   ActivityIndicator,
   View,
   FlatList,
   ScrollView,
-  Text,
   StyleSheet,
+  TextInput,
+  Text,
   Picker,
 } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-export default class Tenantfeedback extends Component {
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import AllFeedback from "../Listings/AllFeedback";
+class GetAllBookings extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       isLoading: true,
-      review: "",
+      text: "",
       dataSource: {},
-      rating: "",
-      tenant_id: this.props.route.params.tenant_id,
+      realtor_id: 4,
     };
-  }
-  handleReview = (text) => {
-    this.setState({ review: text });
-  };
-
-  componentDidMount() {
-    fetch(
-      `https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/?tenant_id=${this.state.tenant_id}`,
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        //console.log(responseJson);
-        this.arrayholder = responseJson;
-
-        this.setState({
-          isLoading: false,
-
-          dataSource: responseJson,
-        });
-        console.log(this.state.dataSource);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.arrayholder = [];
+    1;
   }
   ListViewItemSeparator = () => {
     return (
@@ -65,6 +37,29 @@ export default class Tenantfeedback extends Component {
     );
   };
 
+  componentDidMount() {
+    fetch(
+      `https://qayaamapi.herokuapp.com/bookings-all/specific-realtor-approved-booking?realtor_id=${this.state.realtor_id}&is_approved=Yes`,
+      {
+        method: "GET",
+      }
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        //console.log(responseJson);
+        this.arrayholder = responseJson;
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        });
+        console.log(this.state.dataSource);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -74,21 +69,24 @@ export default class Tenantfeedback extends Component {
       );
     }
     return (
-      <ScrollView>
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={(data) => (
-            <FeebackView {...data.item} navigation={this.props.navigation} />
-          )}
-          ItemSeparatorComponent={this.ListViewItemSeparator}
-          keyExtractor={(item) => item.id}
-          enableEmptySections={true}
-          style={{ marginTop: 10 }}
-        />
-      </ScrollView>
+      <View>
+        <ScrollView>
+          <FlatList
+            data={this.state.dataSource}
+            renderItem={(data) => (
+              <AllFeedback {...data.item} navigation={this.props.navigation} />
+            )}
+            ItemSeparatorComponent={this.ListViewItemSeparator}
+            keyExtractor={(item) => item.id}
+            enableEmptySections={true}
+            style={{ marginTop: 10 }}
+          />
+        </ScrollView>
+      </View>
     );
   }
 }
+
 const styles = StyleSheet.create({
   listItemContainer: {
     borderStyle: "solid",
@@ -125,3 +123,4 @@ const styles = StyleSheet.create({
     left: 62,
   },
 });
+export default GetAllBookings;

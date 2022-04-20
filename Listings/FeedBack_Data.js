@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 //import react in our code.
 
-import FeebackView from "./FeebackView";
+import FeebackView from "../Component/FeebackView";
 //import all the components we are going to use.
 import {
   ActivityIndicator,
@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Picker,
 } from "react-native";
+
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 export default class Feedback extends Component {
   constructor(props) {
@@ -23,8 +24,8 @@ export default class Feedback extends Component {
       review: "",
       dataSource: {},
       rating: "",
-      list_id: this.props.route.params.list_id,
-      tenant_id: "2",
+      realtor_id: this.props.route.params.realtor_id,
+      tenant_id: this.props.route.params.tenant_id,
     };
   }
   handleReview = (text) => {
@@ -33,7 +34,7 @@ export default class Feedback extends Component {
 
   componentDidMount() {
     fetch(
-      `https://qayaamapi.herokuapp.com/listingfeedbacks-all?list_id=${this.state.list_id}`,
+      `https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/?tenant_id=${this.state.tenant_id}`,
       {
         method: "GET",
       }
@@ -135,7 +136,7 @@ export default class Feedback extends Component {
                 console.log(this.state.rating);
                 try {
                   fetch(
-                    "https://qayaamapi.herokuapp.com/listingfeedbacks-all",
+                    "https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/",
                     {
                       method: "POST",
                       mode: "no-cors",
@@ -146,8 +147,8 @@ export default class Feedback extends Component {
                       body: JSON.stringify({
                         star_rating: this.state.rating,
                         description: this.state.review,
-                        list_id: this.state.list_id,
                         tenant_id: this.state.tenant_id,
+                        realtor_id: this.state.realtor_id,
                       }),
                     }
                   );

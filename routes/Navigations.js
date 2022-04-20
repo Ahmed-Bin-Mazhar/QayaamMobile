@@ -34,6 +34,10 @@ import BookingView from "../Component/BookingView";
 import DataUser from "../Listings/DataUser";
 import UserReviewDesign from "../Component/UserReviewDesign";
 import ViewListingFeedBack from "../Component/ViewListingFeedBack";
+import GetAllBookings from "../Component/GetAllBookings";
+import AllBookings from "../Listings/AllBooking";
+import GetAllT_Feedback from "../Component/GetAllT_Feedback";
+import FeedBack_Data from "../Listings/FeedBack_Data";
 
 const CustomDrawer = (props) => {
   return (
@@ -200,7 +204,7 @@ function RealtorView({ navigation }) {
           title: "Listings",
 
           headerStyle: {
-            backgroundColor: "#515B5F",
+            backgroundColor: "#6f858c",
             elevation: 0,
             shadowOpacity: 0,
           },
@@ -222,7 +226,7 @@ function RealtorView({ navigation }) {
           title: "Listings",
 
           headerStyle: {
-            backgroundColor: "#515B5F",
+            backgroundColor: "#6f858c",
             elevation: 0,
             shadowOpacity: 0,
           },
@@ -245,7 +249,7 @@ function RealtorView({ navigation }) {
           title: "Listings",
 
           headerStyle: {
-            backgroundColor: "#515B5F",
+            backgroundColor: "#6f858c",
             elevation: 0,
             shadowOpacity: 0,
           },
@@ -389,7 +393,7 @@ function RealtorView({ navigation }) {
           headerShown: true,
           headerTitle: "Add Listings",
           headerStyle: {
-            backgroundColor: "#515B5F",
+            backgroundColor: "#6f858c",
             elevation: 0,
             shadowOpacity: 0,
           },
@@ -411,7 +415,322 @@ function RealtorView({ navigation }) {
           headerTitle: "Bookings",
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#515B5F",
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="GetAllBookings"
+        component={GetAllBookings}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          headerTitle: "Bookings",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="AllBookings"
+        component={AllBookings}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          headerTitle: "Bookings",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="GetAllT_Feedback"
+        component={GetAllT_Feedback}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FeedBack_Data"
+        component={FeedBack_Data}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      {/* <Stack.Screen
+        name="FeebackView"
+        component={FeebackView}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: true,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      /> */}
+    </Stack.Navigator>
+  );
+}
+function ListingViewFunc({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="View_Listings"
+        component={ViewListings}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="UserReviewDesign"
+        component={UserReviewDesign}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="DataUser"
+        component={DataUser}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="HomeListings"
+        component={HomeListings}
+        options={{
+          headerShown: false,
+          headerTitle: "Details",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="Data"
+        component={Data}
+        options={{
+          headerShown: false,
+          headerTitle: "Details",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Booking"
+        component={BookingReq}
+        options={{
+          headerTitle: "Booking",
+          headerTitleAlign: "center",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Feedback"
+        component={ViewListingFeedBack}
+        options={{
+          headerTitle: "Booking",
+          headerShown: false,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BookingView"
+        component={BookingView}
+        options={{
+          headerTitle: "Booking",
+          headerShown: false,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="BookingReq"
+        component={BookingReq}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          headerTitle: "Bookings",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#6f858c",
             elevation: 0,
             shadowOpacity: 0,
           },
@@ -426,53 +745,149 @@ function RealtorView({ navigation }) {
     </Stack.Navigator>
   );
 }
-function Bookingfunc() {
-  <Stack.Navigator>
-    <Stack.Screen
-      name="BookingReq"
-      component={BookingReq}
-      options={{
-        flexDirection: "row",
-        headerTitleAlign: "center",
-        headerShown: true,
-        headerTitle: "Bookings",
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: "#515B5F",
-          elevation: 0,
-          shadowOpacity: 0,
-        },
+function Bookingfunc({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="GetAllBookings"
+        component={GetAllBookings}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
 
-        headerTitleStyle: {
-          color: "#fff",
-          fontWeight: "600",
-          fontSize: 22,
-        },
-      }}
-    />
-    <Stack.Screen
-      name="BookingView"
-      component={BookingView}
-      options={{
-        flexDirection: "row",
-        headerTitleAlign: "center",
-        headerShown: true,
-        headerTitle: "Bookings",
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: "#515B5F",
-          elevation: 0,
-          shadowOpacity: 0,
-        },
+          headerTitle: "Bookings",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
 
-        headerTitleStyle: {
-          color: "#fff",
-          fontWeight: "600",
-          fontSize: 22,
-        },
-      }}
-    />
-  </Stack.Navigator>;
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Tenantfeedback"
+        component={Tenantfeedback}
+        options={{
+          headerShown: false,
+          headerTitle: "Feedback",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="AllBookings"
+        component={AllBookings}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          headerTitle: "Bookings",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function RateALLFunc() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="GetAllT_Feedback"
+        component={GetAllT_Feedback}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FeedBack_Data"
+        component={FeedBack_Data}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FeebackView"
+        component={FeebackView}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+          title: "Listings",
+
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
 }
 function HomeNavigation() {
   return (
@@ -696,19 +1111,9 @@ const DrawerNavigator = () => {
         component={Account}
         options={{ headerTitleAlign: "center" }}
       />
-      <Drawer.Screen
-        name="About US"
-        component={Aboutus}
-        options={{ headerTitleAlign: "center" }}
-      />
 
       <Drawer.Screen
-        name="Contact US"
-        component={ContactUs}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="QayaamRealtor"
+        name="Qayaam Realtor"
         component={RealtorView}
         options={{ headerTitleAlign: "center" }}
       />
@@ -718,18 +1123,30 @@ const DrawerNavigator = () => {
         options={{ headerTitleAlign: "center" }}
       />
       <Drawer.Screen
-        name="ViewListings"
-        component={ViewListings}
+        name="View Listings"
+        component={ListingViewFunc}
         options={{ headerTitleAlign: "center" }}
       />
+
       <Drawer.Screen
-        name="Tenantfeedback"
-        component={Tenantfeedback}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="BookingRequest"
+        name="Booking Requests"
         component={Bookingfunc}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="Rate Tenants"
+        component={RateALLFunc}
+        options={{ headerTitleAlign: "center" }}
+      />
+      <Drawer.Screen
+        name="About US"
+        component={Aboutus}
+        options={{ headerTitleAlign: "center" }}
+      />
+
+      <Drawer.Screen
+        name="Contact US"
+        component={ContactUs}
         options={{ headerTitleAlign: "center" }}
       />
     </Drawer.Navigator>

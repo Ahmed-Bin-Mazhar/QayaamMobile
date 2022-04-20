@@ -8,12 +8,14 @@ import {
   Button,
 } from "react-native";
 
-const UserReviewDesign = ({ route, navigation }) => {
-  const feedback_id = route.params.feedback_id;
-  const star_rating = route.params.star_rating;
-  const description = route.params.description;
-  const tenant_id = route.params.tenant_id;
-  const realtor_id = route.params.realtor_id;
+const UserReviewDesign = ({
+  feedback_id,
+  star_rating,
+  description,
+  tenant_id,
+  realtor_id,
+  navigation,
+}) => {
   const [Username, SetUsername] = useState(null);
 
   useEffect(() => {

@@ -30,6 +30,7 @@ const HomeListings = ({
   is_featured,
   photo1,
   photo2,
+  realtor_id,
   navigation,
 }) => {
   return (
@@ -60,6 +61,7 @@ const HomeListings = ({
               is_featured,
               photo1,
               photo2,
+              realtor_id,
               navigation,
             }
           );

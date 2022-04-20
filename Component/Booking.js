@@ -38,7 +38,7 @@ const Booking = ({ route, navigation }) => {
   }, []);
   const [CheckIn, setCheckin] = useState();
   const [CheckOut, setCheckOut] = useState();
-
+  const realtor_id = route.params.realtor_id;
   const list_id = route.params.list_id;
   return (
     <View style={styles.container}>
@@ -151,6 +151,7 @@ const Booking = ({ route, navigation }) => {
           console.log(CheckIn);
           console.log(CheckOut);
           console.log(list_id);
+          console.log(realtor_id);
 
           try {
             fetch("https://qayaamapi.herokuapp.com/bookings-all", {
@@ -164,8 +165,9 @@ const Booking = ({ route, navigation }) => {
                 booking_date_time: currentDate,
                 checkin_date: CheckIn,
                 checkout_date: CheckOut,
+                tenant_id: "2",
+                realtor_id: realtor_id,
                 list_id: list_id,
-                tenant_id: "3",
               }),
             });
           } catch (e) {
