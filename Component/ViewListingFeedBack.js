@@ -21,7 +21,7 @@ export default class ViewListingFeedBack extends Component {
       review: "",
       dataSource: {},
       rating: "",
-      list_id: "9",
+      list_id: this.props.route.params.list_id,
     };
   }
   handleReview = (text) => {

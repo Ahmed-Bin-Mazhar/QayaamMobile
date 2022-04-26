@@ -32,6 +32,7 @@ export default class Feedback extends Component {
   };
 
   componentDidMount() {
+    console.log(this.state.list_id);
     fetch(
       `https://qayaamapi.herokuapp.com/listingfeedbacks-all?list_id=${this.state.list_id}`,
       {

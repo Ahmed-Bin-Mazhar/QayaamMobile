@@ -20,7 +20,7 @@ class GetAllBookings extends PureComponent {
       isLoading: true,
       text: "",
       dataSource: {},
-      realtor_id: 4,
+      realtor_id: 6,
     };
     this.arrayholder = [];
     1;

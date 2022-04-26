@@ -1048,6 +1048,165 @@ function HomeNavigation() {
     </Stack.Navigator>
   );
 }
+function FeaturedNavigation() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Featured Listing"
+        component={Featured}
+        options={{
+          flexDirection: "row",
+          headerTitleAlign: "center",
+          headerShown: false,
+        }}
+      />
+      {/* <Stack.Screen
+        name="SearchData"
+        component={SearchData}
+        options={{
+          headerTitle: "Search Result",
+          headerTitleAlign: "left",
+
+          headerStyle: {
+            backgroundColor: "#10284e",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      /> */}
+      <Stack.Screen
+        name="HomeListings"
+        component={HomeListings}
+        options={{
+          headerTitle: "Details",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="Data"
+        component={Data}
+        options={{
+          headerTitle: "Details",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Booking"
+        component={Booking}
+        options={{
+          headerTitle: "Booking",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Feedback"
+        component={Feedback}
+        options={{
+          headerTitle: "Feedback",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FeebackView"
+        component={FeebackView}
+        options={{
+          headerShown: "False",
+          headerTitle: "Feedback",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          headerTitle: "Filter Search",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#6f858c",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+
+          headerTitleStyle: {
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: 22,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 const DrawerNavigator = () => {
   return (
@@ -1098,7 +1257,7 @@ const DrawerNavigator = () => {
 
       <Drawer.Screen
         name="Featured Listing"
-        component={Featured}
+        component={FeaturedNavigation}
         options={{ headerTitleAlign: "center" }}
       />
       <Drawer.Screen
