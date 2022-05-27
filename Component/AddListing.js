@@ -424,8 +424,6 @@ export default RegistrationAdmin = ({ navigation }) => {
                     laundary_facility: laundary_facility1,
                     internet_facility: internet_facility1,
                     is_featured: is_featured1,
-                    // photo1: "",
-                    // photo2: "",
                     realtor_id: "6",
                   }),
                 });

@@ -12,54 +12,46 @@ import {
 import Footer from "../Component/Footer";
 
 function SignIn({ navigation }) {
-  // hide && show Password
-  //   const [PassShow, setPassShow] = useState(true);
+  //hide && show Password
+  const [PassShow, setPassShow] = useState(true);
 
-  //   Text empty alert
-  //   const [usernameshow, setusernameshow] = useState(false);
-  //   const [passwordshow, setpasswordshow] = useState(false);
+  // Text empty alert
+  const [usernameshow, setusernameshow] = useState(false);
+  const [passwordshow, setpasswordshow] = useState(false);
 
-  //   // Get a Textinput
-  //   const [username, setuserName] = useState("");
-  //   const [password, setPassword] = useState("");
+  // Get a Textinput
+  const [username, setuserName] = useState("");
+  const [password, setPassword] = useState("");
 
-  //   const handleSubmitPress = async () => {
-  //     //username check
-  //     if (!username.trim()) {
-  //       setusernameshow(true);
-  //     } else {
-  //       setusernameshow(false);
-  //     }
-  //     //Password check
-  //     if (!password.trim()) {
-  //       setpasswordshow(true);
-  //     } else {
-  //       setpasswordshow(false);
-  //     }
+  const handleSubmitPress = async () => {
+    //username check
+    if (!username.trim()) {
+      setusernameshow(true);
+    } else {
+      setusernameshow(false);
+    }
+    //Password check
+    if (!password.trim()) {
+      setpasswordshow(true);
+    } else {
+      setpasswordshow(false);
+    }
 
-  // Sign In code Here ...
-  //      if (username.trim() && password.trim()) {
-  //        await fetch("http://3.135.209.144:8000/ep/login_user", {
-  //          method: "POST", //Login
-  //          headers: {
-  //            Accept: "application/json",
-  //            "Content-Type": "application/json",
-  //          },
-  //          body: JSON.stringify({
-  //            username: username,
-  //            password: password,
-  //          }),
-  //        })
-  //          .then((res) => res.json()) //resposne
-  //          .then((resJson) => {
-  //            console.log("Successfull : " + JSON.stringify(resJson));
-  //            alert("Successful : " + JSON.stringify(resJson));
-  //          })
-  //          .catch((error) =>
-  //            console.log("there is a error on internet : " + error)
-  //          );
-  //      }
-  //    };
+    // Sign In code Here ...
+    if (username.trim() && password.trim()) {
+      await fetch(
+        `https://qayaamapi.herokuapp.com/accounts-all/sign-in?email=${username}&password=${password}`
+      )
+        .then((response) => response.json())
+        .then((resJson) => {
+          console.log("Successfull : " + JSON.stringify(resJson));
+          alert("Successful : " + JSON.stringify(resJson));
+        })
+        .catch((error) =>
+          console.log("there is a error on internet : " + error)
+        );
+    }
+  };
 
   return (
     <ScrollView>
@@ -88,7 +80,7 @@ function SignIn({ navigation }) {
               style={styles.TextInput}
               color="#000"
               //   secureTextEntry={PassShow}
-              // onChangeText={(text) => setPassword(text)}
+              onChangeText={(text) => setuserName(text)}
             />
           </View>
           {/* Passward */}
@@ -100,7 +92,7 @@ function SignIn({ navigation }) {
               style={styles.TextInput}
               color="#000"
               //   secureTextEntry={PassShow}
-              // onChangeText={(text) => setPassword(text)}
+              onChangeText={(text) => setPassword(text)}
             />
           </View>
           {/* Button */}
@@ -113,6 +105,7 @@ function SignIn({ navigation }) {
           >
             <TouchableOpacity
               style={styles.Button}
+              onPress={handleSubmitPress}
               //   onPress={handleSubmitPress}
             >
               <Text style={{ fontSize: 16, fontWeight: "bold", color: "#fff" }}>
