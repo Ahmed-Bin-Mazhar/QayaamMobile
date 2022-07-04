@@ -1,10 +1,11 @@
 import * as React from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-
+import { AuthContext } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 const Drawer = createDrawerNavigator();
 import Aboutus from "../Component/Aboutus";
@@ -22,7 +23,7 @@ import AddListing from "../Component/AddListing";
 import Realtor from "../Component/Realtor";
 import BookingRequest from "../Component/BookingReq";
 import ViewListings from "../Component/ViewListing";
-
+import SplashScreen from "../Component/SplashScreen";
 import BookingReq from "../Component/BookingReq";
 import { ScrollView } from "react-native-gesture-handler";
 import HomeListings from "../Listings/HomeListings";
@@ -40,6 +41,23 @@ import GetAllT_Feedback from "../Component/GetAllT_Feedback";
 import FeedBack_Data from "../Listings/FeedBack_Data";
 
 const CustomDrawer = (props) => {
+  const { logout, userInfo } = useContext(AuthContext);
+  const [Username, SetUsername] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://qayaamapi.herokuapp.com/accounts-all/${userInfo.user_id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+
+        Authorization: `Token  ${userInfo.token}`,
+      },
+    })
+      .then((response) => response.json())
+
+      .then((data) => SetUsername(data.name));
+  }, []);
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -60,14 +78,13 @@ const CustomDrawer = (props) => {
             style={{ width: 60, height: 60, borderRadius: 30 }}
           />
           <View>
-            <Text style={{ paddingTop: 5, color: "#fff" }}>
-              ahmedbinmazhar@gmail.com
-            </Text>
+            <Text style={{ paddingTop: 5, color: "#fff" }}>{Username}</Text>
           </View>
         </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <TouchableOpacity
+        onPress={logout}
         style={{
           position: "absolute",
           right: 0,
@@ -107,6 +124,7 @@ const CustomDrawer = (props) => {
   );
 };
 const Stack = createStackNavigator();
+
 function Account({ navigation }) {
   return (
     <Stack.Navigator>
@@ -182,6 +200,7 @@ function Account({ navigation }) {
     </Stack.Navigator>
   );
 }
+
 function RealtorView({ navigation }) {
   return (
     <Stack.Navigator>
@@ -542,6 +561,7 @@ function RealtorView({ navigation }) {
     </Stack.Navigator>
   );
 }
+
 function ListingViewFunc({ navigation }) {
   return (
     <Stack.Navigator>
@@ -745,6 +765,7 @@ function ListingViewFunc({ navigation }) {
     </Stack.Navigator>
   );
 }
+
 function Bookingfunc({ navigation }) {
   return (
     <Stack.Navigator>
@@ -817,6 +838,7 @@ function Bookingfunc({ navigation }) {
     </Stack.Navigator>
   );
 }
+
 function RateALLFunc() {
   return (
     <Stack.Navigator>
@@ -889,6 +911,7 @@ function RateALLFunc() {
     </Stack.Navigator>
   );
 }
+
 function HomeNavigation() {
   return (
     <Stack.Navigator>
@@ -1048,6 +1071,7 @@ function HomeNavigation() {
     </Stack.Navigator>
   );
 }
+
 function FeaturedNavigation() {
   return (
     <Stack.Navigator>
@@ -1208,116 +1232,318 @@ function FeaturedNavigation() {
   );
 }
 
-const DrawerNavigator = () => {
+// const DrawerNavigator = () => {
+//   const { userInfo, splashLoading } = useContext(AuthContext);
+//   return (
+//     <>
+//       {splashLoading ? (
+//         <Stack.Screen
+//           name="Splash Screen"
+//           component={SplashScreen}
+//           options={{ headerShown: false }}
+//         />
+//       ) : userInfo.type == "Tenant" ? (
+//         <>
+//           <Drawer.Navigator
+//             screenOptions={{
+//               headerShown: true,
+
+//               headerStyle: {
+//                 backgroundColor: "#6f858c",
+//                 elevation: 0,
+//                 shadowOpacity: 0,
+//                 height: 110,
+//               },
+//               headerTintColor: "#fff",
+
+//               headerTitleStyle: {
+//                 color: "#fff",
+//                 fontWeight: "600",
+//                 fontSize: 22,
+//               },
+//             }}
+//             drawerContent={(props) => <CustomDrawer {...props} />}
+//           >
+//             <Drawer.Screen
+//               name="Qayaam"
+//               component={HomeNavigation}
+//               options={{
+//                 flexDirection: "row",
+//                 headerTitleAlign: "center",
+
+//                 // headerRight: ({ navigation }) => (
+//                 //   <MaterialCommunityIcons
+//                 //     name="filter-outline"
+//                 //     size={28}
+//                 //     color="#fff"
+//                 //     style={{ position: "relative", flexDirection: "row", right: 5 }}
+//                 //     onPress={() => this.navigation.push("Search")}
+//                 //   />
+//                 // ),
+//                 headerTitle: () => (
+//                   <Image
+//                     source={require("../Img/logo.png")}
+//                     style={{ width: 100, height: 100, alignContent: "center" }}
+//                   />
+//                 ),
+//               }}
+//             />
+
+//             <Drawer.Screen
+//               name="Featured Listing"
+//               component={FeaturedNavigation}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//             <Drawer.Screen
+//               name="Search"
+//               component={Search}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//             <Drawer.Screen
+//               name="About US"
+//               component={Aboutus}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+
+//             <Drawer.Screen
+//               name="Contact US"
+//               component={ContactUs}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//           </Drawer.Navigator>
+//         </>
+//       ) : userInfo.type == "Realtor" ? (
+//         <>
+//           <Drawer.Navigator
+//             screenOptions={{
+//               headerShown: true,
+
+//               headerStyle: {
+//                 backgroundColor: "#6f858c",
+//                 elevation: 0,
+//                 shadowOpacity: 0,
+//                 height: 110,
+//               },
+//               headerTintColor: "#fff",
+
+//               headerTitleStyle: {
+//                 color: "#fff",
+//                 fontWeight: "600",
+//                 fontSize: 22,
+//               },
+//             }}
+//             drawerContent={(props) => <CustomDrawer {...props} />}
+//           >
+//             <Drawer.Screen
+//               name="Qayaam Realtor"
+//               component={RealtorView}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//             <Drawer.Screen
+//               name="Add Listings"
+//               component={AddListing}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//             <Drawer.Screen
+//               name="View Listings"
+//               component={ListingViewFunc}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+
+//             <Drawer.Screen
+//               name="Booking Requests"
+//               component={Bookingfunc}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//             <Drawer.Screen
+//               name="Rate Tenants"
+//               component={RateALLFunc}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//             <Drawer.Screen
+//               name="About US"
+//               component={Aboutus}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+
+//             <Drawer.Screen
+//               name="Contact US"
+//               component={ContactUs}
+//               options={{ headerTitleAlign: "center" }}
+//             />
+//           </Drawer.Navigator>
+//         </>
+//       ) : (
+//         <>
+//           <Stack.Navigator>
+//             <Stack.Screen
+//               name="Account"
+//               component={Account}
+//               options={{ headerShown: false }}
+//             />
+//           </Stack.Navigator>
+//         </>
+//       )}
+//     </>
+//   );
+// };
+
+export default Navigations = () => {
+  const { userInfo } = useContext(AuthContext);
   return (
-    <Drawer.Navigator
-      screenOptions={{
-        headerShown: true,
+    <NavigationContainer>
+      {userInfo.type == "Realtor" && userInfo.token ? (
+        <>
+          <Drawer.Navigator
+            screenOptions={{
+              headerShown: true,
 
-        headerStyle: {
-          backgroundColor: "#6f858c",
-          elevation: 0,
-          shadowOpacity: 0,
-          height: 110,
-        },
-        headerTintColor: "#fff",
+              headerStyle: {
+                backgroundColor: "#6f858c",
+                elevation: 0,
+                shadowOpacity: 0,
+                height: 110,
+              },
+              headerTintColor: "#fff",
 
-        headerTitleStyle: {
-          color: "#fff",
-          fontWeight: "600",
-          fontSize: 22,
-        },
-      }}
-      drawerContent={(props) => <CustomDrawer {...props} />}
-    >
-      <Drawer.Screen
-        name="Qayaam"
-        component={HomeNavigation}
-        options={{
-          flexDirection: "row",
-          headerTitleAlign: "center",
-
-          // headerRight: ({ navigation }) => (
-          //   <MaterialCommunityIcons
-          //     name="filter-outline"
-          //     size={28}
-          //     color="#fff"
-          //     style={{ position: "relative", flexDirection: "row", right: 5 }}
-          //     onPress={() => this.navigation.push("Search")}
-          //   />
-          // ),
-          headerTitle: () => (
-            <Image
-              source={require("../Img/logo.png")}
-              style={{ width: 100, height: 100, alignContent: "center" }}
+              headerTitleStyle: {
+                color: "#fff",
+                fontWeight: "600",
+                fontSize: 22,
+              },
+            }}
+            drawerContent={(props) => <CustomDrawer {...props} />}
+          >
+            <Drawer.Screen
+              name="Qayaam Realtor"
+              component={RealtorView}
+              options={{ headerTitleAlign: "center" }}
             />
-          ),
-        }}
-      />
+            <Drawer.Screen
+              name="Add Listings"
+              component={AddListing}
+              options={{ headerTitleAlign: "center" }}
+            />
+            <Drawer.Screen
+              name="View Listings"
+              component={ListingViewFunc}
+              options={{ headerTitleAlign: "center" }}
+            />
 
-      <Drawer.Screen
-        name="Featured Listing"
-        component={FeaturedNavigation}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="Search"
-        component={Search}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="Account"
-        component={Account}
-        options={{ headerTitleAlign: "center" }}
-      />
+            <Drawer.Screen
+              name="Booking Requests"
+              component={Bookingfunc}
+              options={{ headerTitleAlign: "center" }}
+            />
+            <Drawer.Screen
+              name="Rate Tenants"
+              component={RateALLFunc}
+              options={{ headerTitleAlign: "center" }}
+            />
+            <Drawer.Screen
+              name="About US"
+              component={Aboutus}
+              options={{ headerTitleAlign: "center" }}
+            />
 
-      <Drawer.Screen
-        name="Qayaam Realtor"
-        component={RealtorView}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="Add Listings"
-        component={AddListing}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="View Listings"
-        component={ListingViewFunc}
-        options={{ headerTitleAlign: "center" }}
-      />
+            <Drawer.Screen
+              name="Contact US"
+              component={ContactUs}
+              options={{ headerTitleAlign: "center" }}
+            />
+          </Drawer.Navigator>
+        </>
+      ) : userInfo.type == "Tenant" && userInfo.token ? (
+        <>
+          <Drawer.Navigator
+            screenOptions={{
+              headerShown: true,
 
-      <Drawer.Screen
-        name="Booking Requests"
-        component={Bookingfunc}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="Rate Tenants"
-        component={RateALLFunc}
-        options={{ headerTitleAlign: "center" }}
-      />
-      <Drawer.Screen
-        name="About US"
-        component={Aboutus}
-        options={{ headerTitleAlign: "center" }}
-      />
+              headerStyle: {
+                backgroundColor: "#6f858c",
+                elevation: 0,
+                shadowOpacity: 0,
+                height: 110,
+              },
+              headerTintColor: "#fff",
 
-      <Drawer.Screen
-        name="Contact US"
-        component={ContactUs}
-        options={{ headerTitleAlign: "center" }}
-      />
-    </Drawer.Navigator>
+              headerTitleStyle: {
+                color: "#fff",
+                fontWeight: "600",
+                fontSize: 22,
+              },
+            }}
+            drawerContent={(props) => <CustomDrawer {...props} />}
+          >
+            <Drawer.Screen
+              name="Qayaam"
+              component={HomeNavigation}
+              options={{
+                flexDirection: "row",
+                headerTitleAlign: "center",
+
+                // headerRight: ({ navigation }) => (
+                //   <MaterialCommunityIcons
+                //     name="filter-outline"
+                //     size={28}
+                //     color="#fff"
+                //     style={{ position: "relative", flexDirection: "row", right: 5 }}
+                //     onPress={() => this.navigation.push("Search")}
+                //   />
+                // ),
+                headerTitle: () => (
+                  <Image
+                    source={require("../Img/logo.png")}
+                    style={{ width: 100, height: 100, alignContent: "center" }}
+                  />
+                ),
+              }}
+            />
+
+            <Drawer.Screen
+              name="Featured Listing"
+              component={FeaturedNavigation}
+              options={{ headerTitleAlign: "center" }}
+            />
+            <Drawer.Screen
+              name="Search"
+              component={Search}
+              options={{ headerTitleAlign: "center" }}
+            />
+            <Drawer.Screen
+              name="About US"
+              component={Aboutus}
+              options={{ headerTitleAlign: "center" }}
+            />
+
+            <Drawer.Screen
+              name="Contact US"
+              component={ContactUs}
+              options={{ headerTitleAlign: "center" }}
+            />
+          </Drawer.Navigator>
+        </>
+      ) : (
+        <>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Account"
+              component={Account}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </>
+      )}
+    </NavigationContainer>
   );
 };
 
-export default class Navigations extends React.Component {
-  render() {
-    return (
-      <NavigationContainer>
-        <DrawerNavigator />
-      </NavigationContainer>
-    );
-  }
-}
+// export default class Navigations extends React.Component {
+//   render() {
+//     return (
+//       <NavigationContainer>
+//         <DrawerNavigator />
+//       </NavigationContainer>
+//     );
+//   }
+// }

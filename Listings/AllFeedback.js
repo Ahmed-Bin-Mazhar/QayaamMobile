@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -10,7 +10,7 @@ import {
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import Data from "./Data";
-
+import { AuthContext } from "../context/AuthContext";
 const AllFeedback = ({
   booking_id,
   booking_date_time,
@@ -24,10 +24,20 @@ const AllFeedback = ({
 }) => {
   const [Username, SetUsername] = useState(null);
   const [list, Setlist] = useState(null);
+  const { userInfo } = useContext(AuthContext);
 
   const fetchPost = async () => {
     const response = await fetch(
-      `https://qayaamapi.herokuapp.com/accounts-all/${tenant_id}`
+      `https://qayaamapi.herokuapp.com/accounts-all/${tenant_id}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${userInfo.token}`,
+        },
+      }
     );
     const data = await response.json();
     SetUsername(data.name);
@@ -35,7 +45,16 @@ const AllFeedback = ({
 
   const fetchPost2 = async () => {
     const response = await fetch(
-      `https://qayaamapi.herokuapp.com/listings-all/${list_id}`
+      `https://qayaamapi.herokuapp.com/listings-all/${list_id}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${userInfo.token}`,
+        },
+      }
     );
     const data = await response.json();
     Setlist(data.title);
@@ -46,11 +65,16 @@ const AllFeedback = ({
     fetchPost2();
   }, []);
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={{ flexDirection: "row", height: 100 }}>
       <View style={styles.listItemContainer}>
-        <Ionicons name="home" size={20} color="#000000">
-          <Text style={{ fontSize: 18, fontWeight: "700" }}>{list}</Text>
-        </Ionicons>
+        <View style={{ flexDirection: "row" }}>
+          <Ionicons name="home" size={20} color="#000000" style={{}}></Ionicons>
+          <Text
+            style={{ fontSize: 18, fontWeight: "700", flexDirection: "column" }}
+          >
+            {list}
+          </Text>
+        </View>
         <Ionicons name="person" size={20} color="#000000">
           <Text
             style={{
@@ -66,7 +90,9 @@ const AllFeedback = ({
       <View
         style={{
           flexDirection: "column",
-          padding: 30,
+          position: "absolute",
+          right: 35,
+          bottom: 10,
         }}
       >
         <TouchableOpacity
@@ -100,6 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     // justifyContent: "space-between",
     padding: 10,
+    width: "73%",
   },
   button: {
     borderWidth: 1.5,

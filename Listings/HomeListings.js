@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 15,
   },
-  ItemHeader: {},
+  ItemHeader: { width: "73%" },
   pokeImage: {
     justifyContent: "flex-end",
     backgroundColor: "transparent",

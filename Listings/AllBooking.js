@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -10,7 +10,7 @@ import {
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import Data from "./Data";
-
+import { AuthContext } from "../context/AuthContext";
 const AllBooking = ({
   booking_id,
   booking_date_time,
@@ -24,10 +24,19 @@ const AllBooking = ({
 }) => {
   const [Username, SetUsername] = useState(null);
   const [list, Setlist] = useState(null);
-
+  const { userInfo } = useContext(AuthContext);
   const fetchPost = async () => {
     const response = await fetch(
-      `https://qayaamapi.herokuapp.com/accounts-all/${tenant_id}`
+      `https://qayaamapi.herokuapp.com/accounts-all/${tenant_id}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${userInfo.token}`,
+        },
+      }
     );
     const data = await response.json();
     SetUsername(data.name);
@@ -35,7 +44,16 @@ const AllBooking = ({
 
   const fetchPost2 = async () => {
     const response = await fetch(
-      `https://qayaamapi.herokuapp.com/listings-all/${list_id}`
+      `https://qayaamapi.herokuapp.com/listings-all/${list_id}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${userInfo.token}`,
+        },
+      }
     );
     const data = await response.json();
     Setlist(data.title);
@@ -46,42 +64,50 @@ const AllBooking = ({
     fetchPost2();
   }, []);
   return (
-    <View style={{ flexDirection: "row" }}>
-      <View style={styles.listItemContainer}>
-        <Ionicons name="home" size={20} color="#000000">
-          <Text style={{ fontSize: 18, fontWeight: "700" }}>{list}</Text>
-        </Ionicons>
-        <Ionicons name="person" size={20} color="#000000">
-          <Text
-            style={{
-              fontSize: 17,
-              fontWeight: "500",
-              textTransform: "capitalize",
-            }}
-          >
-            {Username}
+    <View style={{ flexDirection: "row", height: 140, padding: 8 }}>
+      <View style={{ flexDirection: "column" }}>
+        <View style={{ flexDirection: "row" }}>
+          <Ionicons name="home" size={20} color="#000000"></Ionicons>
+          <Text style={{ fontSize: 18, fontWeight: "700", width: "73%" }}>
+            {list}
           </Text>
-        </Ionicons>
+        </View>
+        <View style={styles.listItemContainer}>
+          <Ionicons name="person" size={20} color="#000000">
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: "500",
+                textTransform: "capitalize",
+              }}
+            >
+              {Username}
+            </Text>
+          </Ionicons>
 
-        <View>
-          <Ionicons name="calendar" size={20} color="#000000">
-            <Text style={{ fontSize: 17, fontWeight: "500" }}>
-              {"CheckIn \t\t:\t"}
-              {checkin_date}
-            </Text>
-          </Ionicons>
-          <Ionicons name="calendar" size={20} color="#000000">
-            <Text style={{ fontSize: 17, fontWeight: "500" }}>
-              {"CheckOut : "}
-              {checkout_date}
-            </Text>
-          </Ionicons>
+          <View>
+            <Ionicons name="calendar" size={20} color="#000000">
+              <Text style={{ fontSize: 17, fontWeight: "500" }}>
+                {"CheckIn \t\t:\t"}
+                {checkin_date}
+              </Text>
+            </Ionicons>
+            <Ionicons name="calendar" size={20} color="#000000">
+              <Text style={{ fontSize: 17, fontWeight: "500" }}>
+                {"CheckOut : "}
+                {checkout_date}
+              </Text>
+            </Ionicons>
+          </View>
         </View>
       </View>
       <View
         style={{
-          flexDirection: "column",
           padding: 30,
+          flexDirection: "row",
+          position: "absolute",
+          right: 25,
+          top: 15,
         }}
       >
         <TouchableOpacity
@@ -96,7 +122,10 @@ const AllBooking = ({
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
+
+                    Authorization: `Token  ${userInfo.token}`,
                   },
+
                   body: JSON.stringify({
                     booking_id: booking_id,
                     booking_date_time: booking_date_time,
@@ -128,22 +157,23 @@ const AllBooking = ({
             Reject
           </Text>
         </TouchableOpacity> */}
-      </View>
-      <View style={{ paddingLeft: 10 }}>
-        <TouchableOpacity
-          style={{ position: "absolute", top: 35, right: 1 }}
-          onPress={() => {
-            navigation.navigate(
-              "Tenantfeedback",
 
-              {
-                tenant_id,
-              }
-            );
-          }}
-        >
-          <Ionicons name="play" size={30} color="#000000" />
-        </TouchableOpacity>
+        <View style={{ position: "absolute", right: -15 }}>
+          <TouchableOpacity
+            style={{ position: "absolute", top: 35, right: 1 }}
+            onPress={() => {
+              navigation.navigate(
+                "Tenantfeedback",
+
+                {
+                  tenant_id,
+                }
+              );
+            }}
+          >
+            <Ionicons name="play" size={30} color="#000000" />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

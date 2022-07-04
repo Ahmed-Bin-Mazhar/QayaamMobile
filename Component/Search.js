@@ -14,8 +14,9 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import HomeListings from "../Listings/HomeListings";
-
+import { AuthContext } from "../context/AuthContext";
 export default class Search extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.setdata = this.setdata.bind(this);
@@ -31,12 +32,21 @@ export default class Search extends Component {
   }
 
   componentDidMount() {
-    return fetch("https://qayaamapi.herokuapp.com/listings-all?format=json")
+    return fetch("https://qayaamapi.herokuapp.com/listings-all?format=json", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+
+        Authorization: `Token  ${this.context.userInfo.token}`,
+      },
+    })
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
           isLoading: false,
           arrayholder: responseJson,
+          dataSource: responseJson,
         });
       })
       .catch((error) => {
@@ -115,64 +125,70 @@ export default class Search extends Component {
           <ActivityIndicator />
         </View>
       );
-    }
-    return (
-      <ScrollView>
-        <View style={styles.viewStyle}>
-          <TextInput
-            style={styles.textInputStyle}
-            onChangeText={(text) => this.SearchCity(text)}
-            value={this.state.textcity}
-            underlineColorAndroid="transparent"
-            placeholder="Search City"
-          />
-          <View style={{ padding: 10 }} />
-          <TextInput
-            style={styles.textInputStyle}
-            onChangeText={(text) => this.SearchHostel_Type(text)}
-            value={this.state.texthostel_type}
-            underlineColorAndroid="transparent"
-            placeholder="Search Hostel Type"
-          />
-          <View style={{ padding: 10 }} />
-          <TextInput
-            style={styles.textInputStyle}
-            onChangeText={(text) => this.Searchlocation(text)}
-            value={this.state.textlocation}
-            underlineColorAndroid="transparent"
-            placeholder="Search location"
-          />
-          <View style={{ position: "absolute", left: 140, right: 0, top: 193 }}>
-            <TouchableOpacity
-              onPress={this.setdata}
-              // onPress={() => this.props.navigation.push("SearchData")}
-              style={styles.Button1}
+    } else {
+      return (
+        <ScrollView>
+          <View style={styles.viewStyle}>
+            <TextInput
+              style={styles.textInputStyle}
+              onChangeText={(text) => this.SearchCity(text)}
+              value={this.state.textcity}
+              underlineColorAndroid="transparent"
+              placeholder="Search City"
+            />
+            <View style={{ padding: 10 }} />
+            <TextInput
+              style={styles.textInputStyle}
+              onChangeText={(text) => this.SearchHostel_Type(text)}
+              value={this.state.texthostel_type}
+              underlineColorAndroid="transparent"
+              placeholder="Search Hostel Type"
+            />
+            <View style={{ padding: 10 }} />
+            <TextInput
+              style={styles.textInputStyle}
+              onChangeText={(text) => this.Searchlocation(text)}
+              value={this.state.textlocation}
+              underlineColorAndroid="transparent"
+              placeholder="Search location"
+            />
+            <View
+              style={{ position: "absolute", left: 140, right: 0, top: 193 }}
             >
-              <Text
-                style={{
-                  color: "white",
-                  textAlign: "center",
-                  justifyContent: "center",
-                }}
+              <TouchableOpacity
+                onPress={this.setdata}
+                // onPress={() => this.props.navigation.push("SearchData")}
+                style={styles.Button1}
               >
-                search
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  search
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ padding: 20 }} />
+            <FlatList
+              data={dataSource}
+              ItemSeparatorComponent={this.ListViewItemSeparator}
+              renderItem={(data) => (
+                <HomeListings
+                  {...data.item}
+                  navigation={this.props.navigation}
+                />
+              )}
+              keyExtractor={(item) => item.name}
+              enableEmptySections={true}
+              style={{ marginTop: 10 }}
+            />
           </View>
-          <View style={{ padding: 20 }} />
-          <FlatList
-            data={dataSource}
-            ItemSeparatorComponent={this.ListViewItemSeparator}
-            renderItem={(data) => (
-              <HomeListings {...data.item} navigation={this.props.navigation} />
-            )}
-            keyExtractor={(item) => item.name}
-            enableEmptySections={true}
-            style={{ marginTop: 10 }}
-          />
-        </View>
-      </ScrollView>
-    );
+        </ScrollView>
+      );
+    }
   }
 }
 const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -9,49 +9,31 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import Footer from "../Component/Footer";
+import Spinner from "react-native-loading-spinner-overlay";
+import { AuthContext } from "../context/AuthContext";
+import Footer from "./Footer";
 
 function SignIn({ navigation }) {
-  //hide && show Password
-  const [PassShow, setPassShow] = useState(true);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  // const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
-  // Text empty alert
-  const [usernameshow, setusernameshow] = useState(false);
-  const [passwordshow, setpasswordshow] = useState(false);
-
-  // Get a Textinput
-  const [username, setuserName] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmitPress = async () => {
-    //username check
-    if (!username.trim()) {
-      setusernameshow(true);
-    } else {
-      setusernameshow(false);
-    }
-    //Password check
-    if (!password.trim()) {
-      setpasswordshow(true);
-    } else {
-      setpasswordshow(false);
-    }
-
-    // Sign In code Here ...
-    if (username.trim() && password.trim()) {
-      await fetch(
-        `https://qayaamapi.herokuapp.com/accounts-all/sign-in?email=${username}&password=${password}`
-      )
-        .then((response) => response.json())
-        .then((resJson) => {
-          console.log("Successfull : " + JSON.stringify(resJson));
-          alert("Successful : " + JSON.stringify(resJson));
-        })
-        .catch((error) =>
-          console.log("there is a error on internet : " + error)
-        );
-    }
-  };
+  // const handleSubmitPress = async () => {
+  //   // Sign In code Here ...
+  //   if (username.trim() && password.trim()) {
+  //     await fetch(
+  //       `https://qayaamapi.herokuapp.com/accounts-all/sign-in?email=${email}&password=${password}`
+  //     )
+  //       .then((response) => response.json())
+  //       .then((resJson) => {
+  //         console.log("Successfull : " + JSON.stringify(resJson));
+  //       })
+  //       .catch((error) =>
+  //         console.log("there is a error on internet : " + error)
+  //       );
+  //   }
+  // };
 
   return (
     <ScrollView>
@@ -80,7 +62,7 @@ function SignIn({ navigation }) {
               style={styles.TextInput}
               color="#000"
               //   secureTextEntry={PassShow}
-              onChangeText={(text) => setuserName(text)}
+              onChangeText={(text) => setEmail(text)}
             />
           </View>
           {/* Passward */}
@@ -105,8 +87,10 @@ function SignIn({ navigation }) {
           >
             <TouchableOpacity
               style={styles.Button}
-              onPress={handleSubmitPress}
-              //   onPress={handleSubmitPress}
+              // onPress={handleSubmitPress}
+              onPress={() => {
+                login(email, password);
+              }}
             >
               <Text style={{ fontSize: 16, fontWeight: "bold", color: "#fff" }}>
                 SIGN IN
@@ -137,14 +121,14 @@ function SignIn({ navigation }) {
           </View>
         </View>
       </View>
-      <Footer />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   Container: {
-    padding: 5,
+    padding: 15,
+    marginTop: 140,
   },
   Container2: {
     padding: 10,

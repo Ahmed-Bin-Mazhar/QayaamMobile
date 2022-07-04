@@ -11,8 +11,9 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-
+import { AuthContext } from "../context/AuthContext";
 export default class ViewListingFeedBack extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -33,6 +34,12 @@ export default class ViewListingFeedBack extends Component {
       `https://qayaamapi.herokuapp.com/listingfeedbacks-all?list_id=${this.state.list_id}`,
       {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
       }
     )
       .then((response) => response.json())

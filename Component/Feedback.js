@@ -12,9 +12,12 @@ import {
   Text,
   StyleSheet,
   Picker,
+  Alert,
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { AuthContext } from "../context/AuthContext";
 export default class Feedback extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -24,7 +27,6 @@ export default class Feedback extends Component {
       dataSource: {},
       rating: "",
       list_id: this.props.route.params.list_id,
-      tenant_id: "2",
     };
   }
   handleReview = (text) => {
@@ -37,6 +39,12 @@ export default class Feedback extends Component {
       `https://qayaamapi.herokuapp.com/listingfeedbacks-all?list_id=${this.state.list_id}`,
       {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
       }
     )
       .then((response) => response.json())
@@ -143,18 +151,21 @@ export default class Feedback extends Component {
                       headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json",
+
+                        Authorization: `Token  ${this.context.userInfo.token}`,
                       },
                       body: JSON.stringify({
                         star_rating: this.state.rating,
                         description: this.state.review,
                         list_id: this.state.list_id,
-                        tenant_id: this.state.tenant_id,
+                        tenant_id: this.context.userInfo.user_id,
                       }),
                     }
                   );
                 } catch (e) {
                   console.log(e);
                 }
+                Alert.alert("Thank you for your feedback");
               }}
             >
               <Text style={{ fontSize: 15, fontWeight: "700" }}>

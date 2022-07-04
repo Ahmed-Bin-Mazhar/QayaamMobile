@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import {
   ActivityIndicator,
   View,
@@ -9,8 +9,9 @@ import {
   Picker,
 } from "react-native";
 import UserReviewDesign from "../Component/UserReviewDesign";
-
+import { AuthContext } from "../context/AuthContext";
 export default class DataUser extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -26,6 +27,12 @@ export default class DataUser extends Component {
       `https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/?tenant_id=${this.state.tenant_id}`,
       {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
       }
     )
       .then((response) => response.json())

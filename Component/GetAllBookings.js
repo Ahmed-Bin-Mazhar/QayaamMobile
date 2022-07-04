@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import Footer from "./Footer";
 import AllBooking from "../Listings/AllBooking";
+import { AuthContext } from "../context/AuthContext";
 class GetAllBookings extends PureComponent {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -18,7 +20,6 @@ class GetAllBookings extends PureComponent {
       isLoading: true,
       text: "",
       dataSource: {},
-      realtor_id: 6,
     };
     this.arrayholder = [];
     1;
@@ -37,9 +38,14 @@ class GetAllBookings extends PureComponent {
 
   componentDidMount() {
     fetch(
-      `https://qayaamapi.herokuapp.com/bookings-all/specific-realtor-approved-booking?realtor_id=${this.state.realtor_id}&is_approved=No`,
+      `https://qayaamapi.herokuapp.com/bookings-all/specific-realtor-approved-booking?realtor_id=${this.context.userInfo.user_id}&is_approved=No`,
       {
-        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
       }
     )
       .then((response) => response.json())

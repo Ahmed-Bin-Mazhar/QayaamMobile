@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-
+import { AuthContext } from "../context/AuthContext";
 import DatePicker from "react-native-datepicker";
 const Booking = ({ route, navigation }) => {
   const [currentDate, setCurrentDate] = useState("");
-
+  const { userInfo } = useContext(AuthContext);
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -160,12 +160,13 @@ const Booking = ({ route, navigation }) => {
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
+                Authorization: `Token  ${userInfo.token}`,
               },
               body: JSON.stringify({
                 booking_date_time: currentDate,
                 checkin_date: CheckIn,
                 checkout_date: CheckOut,
-                tenant_id: "2",
+                tenant_id: userInfo.user_id,
                 realtor_id: realtor_id,
                 list_id: list_id,
               }),

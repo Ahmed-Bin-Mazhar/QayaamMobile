@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -9,7 +9,7 @@ import {
   Alert,
   Picker,
 } from "react-native";
-
+import { AuthContext } from "../context/AuthContext";
 export default RegistrationAdmin = ({ navigation }) => {
   // let [selectedImage, setSelectedImage] = React.useState(null);
 
@@ -28,7 +28,7 @@ export default RegistrationAdmin = ({ navigation }) => {
   const [laundary_facility1, setlaundary_facility] = useState("No");
   const [internet_facility1, setinternet_facility] = useState("No");
   const [is_featured1, setis_featured] = useState("false");
-
+  const { userInfo } = useContext(AuthContext);
   // let openImagePickerAsync = async () => {
   //   let pickerResult = await ImagePicker.launchImageLibraryAsync();
   //   if (pickerResult.cancelled === true) {
@@ -366,31 +366,6 @@ export default RegistrationAdmin = ({ navigation }) => {
           />
         </View>
 
-        {/* Realtor Name */}
-        <View
-          style={{
-            flexDirection: "row",
-            paddingLeft: 15,
-            paddingRight: 15,
-            paddingTop: 10,
-          }}
-        >
-          <Text style={{ fontSize: 18, fontWeight: "700" }}>Realtor:</Text>
-          <TextInput
-            style={{
-              flexDirection: "column",
-              borderBottomWidth: 1,
-
-              left: 45,
-              width: "50%",
-              padding: 2,
-              fontSize: 14,
-            }}
-            onChangeText={(text) => setrealtor(text)}
-            placeholder={"enter your name"}
-            multiline={true}
-          />
-        </View>
         <View
           style={{
             paddingTop: 25,
@@ -408,6 +383,7 @@ export default RegistrationAdmin = ({ navigation }) => {
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
+                    Authorization: `Token  ${userInfo.token}`,
                   },
                   body: JSON.stringify({
                     title: title1,
@@ -424,7 +400,7 @@ export default RegistrationAdmin = ({ navigation }) => {
                     laundary_facility: laundary_facility1,
                     internet_facility: internet_facility1,
                     is_featured: is_featured1,
-                    realtor_id: "6",
+                    realtor_id: userInfo.user_id,
                   }),
                 });
                 Alert.alert("Listing Added!");

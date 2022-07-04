@@ -1,5 +1,5 @@
 //This is an example code to make a Star Rating Bar //
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 //import react in our code.
 
 import FeebackView from "./FeebackView";
@@ -15,7 +15,9 @@ import {
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import BookingView from "./BookingView";
+import { AuthContext } from "../context/AuthContext";
 export default class BookingReq extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -35,6 +37,12 @@ export default class BookingReq extends Component {
       `https://qayaamapi.herokuapp.com/bookings-all/specific-listing-booking?list_id=${this.state.list_id}`,
       {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
       }
     )
       .then((response) => response.json())

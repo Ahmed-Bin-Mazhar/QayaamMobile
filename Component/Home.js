@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useContext } from "react";
 import {
   ActivityIndicator,
   View,
@@ -11,7 +11,9 @@ import {
 import Footer from "./Footer";
 import { ListItem } from "react-native-elements";
 import HomeListings from "../Listings/HomeListings";
+import { AuthContext } from "../context/AuthContext";
 class Home extends PureComponent {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -38,6 +40,12 @@ class Home extends PureComponent {
   componentDidMount() {
     fetch("https://qayaamapi.herokuapp.com/listings-all", {
       method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+
+        Authorization: `Token  ${this.context.userInfo.token}`,
+      },
     })
       .then((response) => response.json())
       .then((responseJson) => {
@@ -49,6 +57,7 @@ class Home extends PureComponent {
           dataSource: responseJson,
         });
         console.log(this.state.dataSource);
+        console.log(this.userInfo.token);
       })
       .catch((error) => {
         console.error(error);
@@ -73,33 +82,37 @@ class Home extends PureComponent {
           <ActivityIndicator />
         </View>
       );
-    }
-    return (
-      <ScrollView>
-        <View style={styles.viewStyle}>
-          <View style={styles.header}>
-            <TextInput
-              style={styles.textInputStyle}
-              onChangeText={(text) => this.SearchFilterFunction(text)}
-              value={this.state.text}
-              placeholder="Search Here ..."
-            ></TextInput>
-          </View>
+    } else {
+      return (
+        <ScrollView>
+          <View style={styles.viewStyle}>
+            <View style={styles.header}>
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={(text) => this.SearchFilterFunction(text)}
+                value={this.state.text}
+                placeholder="Search Here ..."
+              ></TextInput>
+            </View>
 
-          <FlatList
-            data={this.state.dataSource}
-            renderItem={(data) => (
-              <HomeListings {...data.item} navigation={this.props.navigation} />
-            )}
-            ItemSeparatorComponent={this.ListViewItemSeparator}
-            keyExtractor={(item) => item.id}
-            enableEmptySections={true}
-            style={{ marginTop: 10 }}
-          />
-        </View>
-        <Footer />
-      </ScrollView>
-    );
+            <FlatList
+              data={this.state.dataSource}
+              renderItem={(data) => (
+                <HomeListings
+                  {...data.item}
+                  navigation={this.props.navigation}
+                />
+              )}
+              ItemSeparatorComponent={this.ListViewItemSeparator}
+              keyExtractor={(item) => item.id}
+              enableEmptySections={true}
+              style={{ marginTop: 10 }}
+            />
+          </View>
+          <Footer />
+        </ScrollView>
+      );
+    }
   }
 }
 

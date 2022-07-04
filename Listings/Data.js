@@ -1,19 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext, useState } from "react";
 
 import {
   Image,
   Text,
   View,
+  Linking,
   StyleSheet,
   ScrollView,
+  Platform,
   TouchableOpacity,
 } from "react-native";
-
+import { AuthContext } from "../context/AuthContext";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import Footer from "../Component/Footer";
 
 export default Data = ({ route, navigation }) => {
+  const [realtorname, Setrealtorname] = useState(null);
+  const { userInfo } = useContext(AuthContext);
+  const [RealtorNumber, SetRealtorNumber] = useState(null);
+  SetRealtorNumber;
   const Nearby_University = route.params.Nearby_University;
   const zipcode = route.params.zipcode;
   const address = route.params.address;
@@ -34,7 +40,21 @@ export default Data = ({ route, navigation }) => {
   const title = route.params.title;
 
   const realtor_id = route.params.realtor_id;
-  useEffect;
+  useEffect(() => {
+    fetch(`https://qayaamapi.herokuapp.com/accounts-all/${realtor_id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+
+        Authorization: `Token  ${userInfo.token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        Setrealtorname(data.name), SetRealtorNumber(data.phone);
+      });
+  }, []);
 
   return (
     <ScrollView>
@@ -281,7 +301,7 @@ export default Data = ({ route, navigation }) => {
           <Text
             style={{ position: "absolute", left: 120, top: 45, fontSize: 14 }}
           >
-            Realtor
+            {realtorname}
           </Text>
 
           {/* Call Button */}
@@ -297,7 +317,10 @@ export default Data = ({ route, navigation }) => {
               borderStyle: "solid",
               backgroundColor: "#6f858c",
             }}
-            //  onPress={() => this.dialCall(usercontact)}
+            // onPress={() => this.dialCall(RealtorNumber)}
+            onPress={() => {
+              Linking.openURL("tel:" + RealtorNumber);
+            }}
           >
             <Ionicons name="md-call-sharp" size={28} color="#fff" />
           </TouchableOpacity>
@@ -319,7 +342,7 @@ const styles = StyleSheet.create({
     width: 410,
   },
   container: {
-    padding: 2,
+    padding: 15,
   },
   heading: {
     paddingTop: 2,

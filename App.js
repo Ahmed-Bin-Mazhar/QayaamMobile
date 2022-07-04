@@ -1,10 +1,8 @@
 import React from "react";
-import Home from "./Component/Home";
+
 import Navigations from "./routes/Navigations";
-import AddListing from "./Component/AddListing";
-
-import Realtor from "./Component/Realtor";
-
+import { AuthProvider } from "./context/AuthContext";
+import SignIn from "./Component/SignIn";
 // const contentful = require("contentful-management");
 
 // async function Connect() {
@@ -21,6 +19,14 @@ import Realtor from "./Component/Realtor";
 // };
 
 export default function App() {
-  return <Navigations />;
+  return (
+    <AuthProvider>
+      <Navigations />
+    </AuthProvider>
+
+    // <AuthProvider>
+    //   <SignIn />
+    // </AuthProvider>
+  );
   //return <AddListing />;
 }

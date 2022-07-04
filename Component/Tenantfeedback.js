@@ -14,7 +14,9 @@ import {
   Picker,
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { AuthContext } from "../context/AuthContext";
 export default class Tenantfeedback extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -35,6 +37,12 @@ export default class Tenantfeedback extends Component {
       `https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/?tenant_id=${this.state.tenant_id}`,
       {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
       }
     )
       .then((response) => response.json())

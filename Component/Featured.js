@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 import { FlatList, View, ActivityIndicator } from "react-native";
 import HomeListings from "../Listings/HomeListings";
-
+import { AuthContext } from "../context/AuthContext";
 class Featured extends Component {
+  static contextType = AuthContext;
   state = {
     Listings: [],
     loading: true,
@@ -12,7 +13,16 @@ class Featured extends Component {
 
   async componentDidMount() {
     fetch(
-      "https://qayaamapi.herokuapp.com/listings-all/specific-listings/?is_featured=True"
+      "https://qayaamapi.herokuapp.com/listings-all/specific-listings/?is_featured=True",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
+      }
     )
       .then((res) => res.json())
       .then((resJson) => {

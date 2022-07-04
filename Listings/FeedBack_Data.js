@@ -13,9 +13,10 @@ import {
   StyleSheet,
   Picker,
 } from "react-native";
-
+import { AuthContext } from "../context/AuthContext";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 export default class Feedback extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
 
@@ -37,6 +38,12 @@ export default class Feedback extends Component {
       `https://qayaamapi.herokuapp.com/tenantsfeedbacks-all/specific-feedbacks/?tenant_id=${this.state.tenant_id}`,
       {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+
+          Authorization: `Token  ${this.context.userInfo.token}`,
+        },
       }
     )
       .then((response) => response.json())
@@ -143,12 +150,14 @@ export default class Feedback extends Component {
                       headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json",
+
+                        Authorization: `Token  ${this.context.userInfo.token}`,
                       },
                       body: JSON.stringify({
                         star_rating: this.state.rating,
                         description: this.state.review,
                         tenant_id: this.state.tenant_id,
-                        realtor_id: this.state.realtor_id,
+                        realtor_id: this.context.userInfo.user_id,
                       }),
                     }
                   );

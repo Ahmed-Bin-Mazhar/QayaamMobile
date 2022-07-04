@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Button,
 } from "react-native";
-
+import { AuthContext } from "../context/AuthContext";
 const FeebackView = ({
   feedback_id,
   star_rating,
@@ -16,9 +16,17 @@ const FeebackView = ({
   navigation,
 }) => {
   const [Username, SetUsername] = useState(null);
-
+  const { userInfo } = useContext(AuthContext);
   useEffect(() => {
-    fetch(`https://qayaamapi.herokuapp.com/accounts-all/${tenant_id}`)
+    fetch(`https://qayaamapi.herokuapp.com/accounts-all/${tenant_id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+
+        Authorization: `Token  ${userInfo.token}`,
+      },
+    })
       .then((response) => response.json())
 
       .then((data) => SetUsername(data.name));
