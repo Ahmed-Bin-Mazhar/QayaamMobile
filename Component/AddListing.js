@@ -219,6 +219,7 @@ export default RegistrationAdmin = ({ navigation }) => {
             }}
             onChangeText={(text) => setdescription(text)}
             multiline={true}
+            numberOfLines={5}
           />
         </View>
         {/* Hostel_Type */}
